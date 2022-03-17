@@ -32,7 +32,7 @@ Assignment of tasks:
 	Ilja Markelov <xmarke00>:
 	- Link interface
 	- Profiling
-	- Program documntation 
+	- Program documentation 
 	
 Togertehr tasks:
 
