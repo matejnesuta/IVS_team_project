@@ -1,0 +1,56 @@
+Deadlines:
+	- 14/03 Approval of project plan
+	- 16/03 Create github repository and readmе file
+	- 17/03 Initialization of math library
+	- 20/03 Create interface for math library
+	- 27/03 Creare tests for math library
+	- 03/04 Implementation of math library by tests and interface 
+	- 10/04 Link interface with library, Standart deviation
+	- 17/04 Profiling of standart deviation, Create Program documentation, Create Makefile
+	- 24/04 Create interface mockup, Application un/installer, Create User documentation 
+	- 27/04 Create skutecnost.txt, hodnoceni.txt, Prepare project presentation
+	- 21/05 Create problemy.txt
+	
+Assignment of tasks:
+
+	Alina Penkova <xpenko00>:
+	- Planning
+	- Tests
+	- User documentation
+	- Repository
+	
+	Matěj Nešuta <xnesut00>:
+	- Interface
+	- Makefile
+	- Un/installer
+	
+	Martin Dzida <xdzida01>:
+	- Initialization 
+	- Implementation 
+	- Standart Deviation
+	
+	Ilja Markelov <xmarke00>:
+	- Link interface
+	- Profiling
+	- Program documntation 
+	
+Togertehr tasks:
+
+	- Create interface mockup
+	- Create skutecnost.txt, hodnoceni.txt, problems.txt
+	- Preparation for presentation of project
+
+Information about communication channels:
+
+	For our comunication we decided to use Discord. We created a discord server, where we have:
+		- github notification channel
+		- notes resourses channel
+		- general channel with threads to discuss all the questions
+		- and several other additional channels
+	
+Information about version control system and hosting:
+
+	VCS: git
+	Hosting: https://github.com/
+	Repository: https://github.com/matejnesuta/IVS_team_project
+	
