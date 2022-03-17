@@ -3,11 +3,11 @@ Pěkný projekt z IVSka
 
 Prostředí
 ---------
-Ubuntu 64bit
+Ubuntu 20.04 - 64bit
 
 Autoři
 ------
-IVS trickery
+<b>Název týmu: </b> IVS trickery
 - xpenko00 Alina Penkova 
 - xnesut00 Matěj Nešuta 
 - xdzida01 Martin Dzida 
