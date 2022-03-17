@@ -1,11 +1,11 @@
 # IVS_team_project
 Pěkný projekt z IVSka
 
-Prostredi
+Prostředí
 ---------
 Ubuntu 64bit
 
-Autori
+Autoři
 ------
 IVS trickery
 - xpenko00 Alina Penkova 
@@ -16,4 +16,4 @@ IVS trickery
 Licence
 -------
 
-Tento program je poskytovan licenci GNU General Public License v3.0
+Tento program je poskytován pod licencí GNU General Public License v3.0
