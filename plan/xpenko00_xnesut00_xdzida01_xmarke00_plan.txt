@@ -30,7 +30,7 @@ Assignment of tasks:
 	- Implementation 
 	- Standard Deviation
 	
-	Ilja Markelov <xmarke00>:
+	Ilia Markelov <xmarke00>:
 	- Link interface
 	- Profiling
 	- Program documentation 
