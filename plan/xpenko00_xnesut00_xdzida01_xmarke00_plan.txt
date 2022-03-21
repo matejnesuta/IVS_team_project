@@ -35,7 +35,7 @@ Assignment of tasks:
 	- Profiling
 	- Program documentation 
 	
-Togertehr tasks:
+Collective tasks:
 
 	- Create interface mockup
 	- Create skutecnost.txt, hodnoceni.txt, problems.txt
