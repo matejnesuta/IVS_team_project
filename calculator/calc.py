@@ -8,12 +8,14 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My App")
+        self.setWindowTitle("Kalkulačka")
         button = QPushButton("Press Me!")
-
+        button.clicked.connect(self.hello)
         # Set the central widget of the Window.
         self.setCentralWidget(button)
 
+    def hello(self):
+        print("looool")
 # You need one (and only one) QApplication instance per application.
 # Pass in sys.argv to allow command line arguments for your app.
 # If you know you won't use command line arguments QApplication([]) works too. 
