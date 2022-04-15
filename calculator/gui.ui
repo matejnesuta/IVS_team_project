@@ -302,10 +302,11 @@ color:white;
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(94, 92, 100);</string>
+         <string notr="true">background-color: rgb(94, 92, 100);
+font-size: 30px;</string>
         </property>
         <property name="text">
-         <string>&lt;-</string>
+         <string>⌫</string>
         </property>
        </widget>
       </item>
