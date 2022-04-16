@@ -366,36 +366,44 @@ class Ui_MainWindow(object):
             else:
                 self.label.setText(text[:-1])
 
+    # def keyPressEvent(self, event):
+    #     if event.key() == QtCore.Qt.Key_1:
+    #         self.displayWrite("1")
 
+    def keyPressEvent(self, e):
+        if e.key() == QtCore.Qt.Key_Down:
+            self.focusNextPrevChild(True)
+        elif e.key() == QtCore.Qt.Key_Up:
+            self.focusNextPrevChild(False)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Kalkulačka"))
-        self.push_n5.setText(_translate("MainWindow", "5"))
-        self.push_factorial.setText(_translate("MainWindow", "!"))
-        self.push_n0.setText(_translate("MainWindow", "0"))
-        self.push_comma.setText(_translate("MainWindow", ","))
-        self.push_n2.setText(_translate("MainWindow", "2"))
-        self.push_pow.setText(_translate("MainWindow", "x²"))
-        self.push_n4.setText(_translate("MainWindow", "4"))
-        self.push_n7.setText(_translate("MainWindow", "7"))
-        self.push_logarithm.setText(_translate("MainWindow", "LOG"))
-        self.push_backspace.setText(_translate("MainWindow", "⌫"))
-        self.push_eq.setText(_translate("MainWindow", "="))
         self.push_ob.setText(_translate("MainWindow", "("))
-        self.push_n6.setText(_translate("MainWindow", "6"))
-        self.push_n3.setText(_translate("MainWindow", "3"))
-        self.push_minus.setText(_translate("MainWindow", "-"))
-        self.push_div.setText(_translate("MainWindow", "÷"))
+        self.push_cb.setText(_translate("MainWindow", ")"))
+        self.push_factorial.setText(_translate("MainWindow", "!"))
+        self.push_clearall.setText(_translate("MainWindow", "CA"))
+        self.push_backspace.setText(_translate("MainWindow", "⌫"))
+        self.push_n7.setText(_translate("MainWindow", "7"))
         self.push_n8.setText(_translate("MainWindow", "8"))
-        self.push_sqrt.setText(_translate("MainWindow", "√x"))
         self.push_n9.setText(_translate("MainWindow", "9"))
         self.push_mul.setText(_translate("MainWindow", "*"))
-        self.push_cb.setText(_translate("MainWindow", ")"))
-        self.push_clearall.setText(_translate("MainWindow", "CA"))
+        self.push_pow.setText(_translate("MainWindow", "x²"))
+        self.push_n4.setText(_translate("MainWindow", "4"))
+        self.push_n5.setText(_translate("MainWindow", "5"))
+        self.push_n6.setText(_translate("MainWindow", "6"))
+        self.push_div.setText(_translate("MainWindow", "÷"))
+        self.push_sqrt.setText(_translate("MainWindow", "√x"))
         self.push_n1.setText(_translate("MainWindow", "1"))
+        self.push_n2.setText(_translate("MainWindow", "2"))
+        self.push_n3.setText(_translate("MainWindow", "3"))
         self.push_plus.setText(_translate("MainWindow", "+"))
         self.push_pi.setText(_translate("MainWindow", "π"))
+        self.push_n0.setText(_translate("MainWindow", "0"))
+        self.push_comma.setText(_translate("MainWindow", ","))
+        self.push_logarithm.setText(_translate("MainWindow", "LOG"))
+        self.push_minus.setText(_translate("MainWindow", "-"))
+        self.push_eq.setText(_translate("MainWindow", "="))
 
 
 if __name__ == "__main__":
