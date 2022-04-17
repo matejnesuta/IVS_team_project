@@ -8,7 +8,7 @@ run: $(VENV)/bin/activate
 
 
 $(VENV)/bin/activate: requirements.txt
-	python -m venv $(VENV)
+	python3.10 -m venv $(VENV)
 	$(PIP) install -r requirements.txt
 
 
