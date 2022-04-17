@@ -383,14 +383,18 @@ class Ui_MainWindow(object):
     def displayDeleteLast(self):
         text=self.label.text()
         if text != "":
-            if text[-1] == '(' and text[-2] == 't':
-                self.label.setText(text[:-5])
-            elif text[-1] == 'g':
+            
+            if text[-1] == 'g':
                 self.label.setText(text[:-3])
             elif text[-1] == 'I':
                 self.label.setText(text[:-2])
-            elif text[-2] == '^':
-                self.label.setText(text[:-2])
+            elif(len(text) > 1):
+                if text[-2] == '^':
+                    self.label.setText(text[:-2])
+                elif text[-1] == '(' and text[-2] == 't':
+                    self.label.setText(text[:-6])
+                else:
+                    self.label.setText(text[:-1])
             else:
                 self.label.setText(text[:-1])
 
@@ -401,7 +405,7 @@ class Ui_MainWindow(object):
         if e.key() >=48 and e.key()<=57:
             self.displayWrite(str(e.key()-48)) 
         elif e.key() == Qt.Key.Key_Backspace:
-            self.displayDeleteLast
+            self.displayDeleteLast()
         elif e.key() == Qt.Key.Key_Return or e.key() == Qt.Key.Key_Enter:
             self.evaluate()
         elif (e.key() >= 40 and e.key() <= 45) or e.key() == 47 or e.key() == 33:
