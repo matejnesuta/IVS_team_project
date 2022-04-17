@@ -7,7 +7,7 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-
+from PyQt6.QtCore import Qt
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -25,6 +25,8 @@ class Ui_MainWindow(object):
 "background-color: rgb(73, 71, 105);\n"
 "\n"
 "")
+        MainWindow.keyPressEvent = self.keyPressEvent
+        MainWindow.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.MinimumExpanding, QtWidgets.QSizePolicy.Policy.MinimumExpanding)
@@ -367,7 +369,7 @@ class Ui_MainWindow(object):
         self.push_factorial.clicked.connect(lambda:self.displayWrite("!"))
         self.push_pi.clicked.connect(lambda:self.displayWrite("PI"))
 
-        self.push_eq.clicked.connect(lambda:print("bylo zmacknuto rovnase"))
+        self.push_eq.clicked.connect(self.evaluate)
         self.push_backspace.clicked.connect(self.displayDeleteLast)
         self.push_clearall.clicked.connect(self.displayClear)
 
@@ -392,15 +394,22 @@ class Ui_MainWindow(object):
             else:
                 self.label.setText(text[:-1])
 
-    # def keyPressEvent(self, event):
-    #     if event.key() == QtCore.Qt.Key_1:
-    #         self.displayWrite("1")
+    def evaluate(self):
+        print("vypocitavam")
 
     def keyPressEvent(self, e):
-        if e.key() == QtCore.Qt.Key_Down:
-            self.focusNextPrevChild(True)
-        elif e.key() == QtCore.Qt.Key_Up:
-            self.focusNextPrevChild(False)
+        if e.key() >=48 and e.key()<=57:
+            self.displayWrite(str(e.key()-48)) 
+        elif e.key() == Qt.Key.Key_Backspace:
+            self.displayDeleteLast
+        elif e.key() == Qt.Key.Key_Return or e.key() == Qt.Key.Key_Enter:
+            self.evaluate()
+        elif (e.key() >= 40 and e.key() <= 45) or e.key() == 47 or e.key() == 33:
+            self.displayWrite(chr(e.key()))
+
+        
+    # def keyPressEvent(self, e):
+    #     
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
