@@ -1,3 +1,4 @@
+import pytest
 import matlib.math_funcs as MF
 
 class TestAdd:
@@ -97,3 +98,48 @@ class TestMul:
         
     def test_nulFloat(self):
         assert MF.mul(0,1.125) == 0
+        
+class TestDiv:
+    
+    def test_intPos(self):
+        assert MF.div(1,2) == 0.5
+        
+    def test_intNeg(self):
+        assert MF.div(-1,-2) == 0.5
+        
+    def test_intNegPos(self):
+        assert MF.div(-2,1) == -2
+        
+    def test_floatPos(self):
+        assert MF.div(1.5,0.75) == 2
+        
+    def test_floatNeg(self):
+        assert MF.div(-1.5,-0.75) == 2
+        
+    def test_floatNegPos(self):
+        assert MF.div(1.5,-0.75) == -2
+    
+    def test_intFloat(self):
+        assert MF.div(2.5,1) == 2.5
+        
+    def test_nul(self):
+        MF.div(0,0)
+        assert "Division by zero" 
+        
+    def test_nulInt(self):
+        assert MF.div(0,1) == 0
+        
+    def test_nulFloat(self):
+        assert MF.div(0,1.125) == 0
+        
+    def test_nul(self):
+        MF.div(0,0)
+        assert "Division by zero" 
+        
+    def test_intNul(self):
+        MF.div(1,0)
+        assert "Division by zero" 
+        
+    def test_floatNul(self):
+        MF.div(1.125,0)
+        assert "Division by zero" 
