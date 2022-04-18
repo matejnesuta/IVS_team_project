@@ -143,3 +143,15 @@ class TestDiv:
     def test_floatNul(self):
         MF.div(1.125,0)
         assert "Division by zero" 
+        
+class TestFactorial:
+    
+    def test_pos(self):
+        assert MF.factorial(3) == 6
+    
+    def test_nul(self):
+        assert MF.factorial(0) == 1
+        
+    def test_float(self):
+        MF.factorial(1.125)
+        assert "Param is not an integer"
