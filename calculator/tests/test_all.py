@@ -1,6 +1,7 @@
 import matlib.math_funcs as MF
 
 class TestAdd:
+    
     def test_intPos(self):
         assert MF.add(1,2) == 3
         
@@ -22,7 +23,6 @@ class TestAdd:
     def test_intFloat(self):
         assert MF.add(1,2.5) == 3.5
         
-        
     def test_nul(self):
         assert MF.add(0,0) == 0
         
@@ -34,6 +34,7 @@ class TestAdd:
         
 
 class TestSub:
+    
     def test_intPos(self):
         assert MF.sub(1,2) == -1
         
@@ -55,7 +56,6 @@ class TestSub:
     def test_intFloat(self):
         assert MF.sub(1,2.5) == -1.5
         
-        
     def test_nul(self):
         assert MF.sub(0,0) == 0
         
@@ -64,3 +64,36 @@ class TestSub:
         
     def test_nulFloat(self):
         assert MF.sub(0,1.125) == -1.125
+        
+
+class TestMul:
+    
+    def test_intPos(self):
+        assert MF.mul(1,2) == 2
+        
+    def test_intNeg(self):
+        assert MF.mul(-1,-2) == 2
+        
+    def test_intNegPos(self):
+        assert MF.mul(-2,1) == -2
+        
+    def test_floatPos(self):
+        assert round(MF.mul(1.5,2.8),1) == 4.2
+        
+    def test_floatNeg(self):
+        assert round(MF.mul(-1.5,-2.8),1) == 4.2
+        
+    def test_floatNegPos(self):
+        assert round(MF.mul(-1.2,2.325),2) == -2.79
+    
+    def test_intFloat(self):
+        assert MF.mul(1,2.5) == 2.5
+        
+    def test_nul(self):
+        assert MF.mul(0,0) == 0
+        
+    def test_nulInt(self):
+        assert MF.mul(0,1) == 0
+        
+    def test_nulFloat(self):
+        assert MF.mul(0,1.125) == 0
