@@ -1,5 +1,5 @@
 #Set with all operators
-oprts_set = {"+", "-", "*", "/", "^", "!", "nthrt", "log"}
+oprtrs_set = {"+", "-", "*", "/", "^", "!", "nthrt", "log"}
 
 
 """
@@ -55,39 +55,46 @@ def bracket_pair_check(exp):
 """
 FIND OPERATORS IN EXPRESSION
 brief: Looking for operators in the expression 
-param: str exp, set {oprts}
-return: dict {index: oprt}
+param: str exp
+return: dict {index: oprtr}
 """
-def find_oprts(exp, oprts):
-    found_oprts = {}
-    i = 0
-    for i, c in enumerate(exp):
-        for op in oprts:
-            if c == op:
-                found_oprts[i] = op
-    return found_oprts
-
-
-"""
-FIND LEFT OPERAND OF THE EXPRESSION
-brief: Looking for the left opearnd of the operation
-param: str exp, 
-return: str left_oprnd 
-"""
-def find_left_oprnd(exp, op):
-
-    return
+def find_oprtrs(exp):
+    found_oprtrs = {}
+    f_p = 0
+    op_i = 0
+    for op in oprtrs_set:
+        while exp.find(op, f_p) != -1:
+            op_i = exp.find(op, f_p)
+            found_oprtrs[op_i] = op
+            f_p = op_i + 1
+        f_p = 0
+    return found_oprtrs
 
 
 """
-FIND RIGHT OPERAND OF THE EXPRESSION
-brief: Looking for the right opearnd of the operation
-param: str exp, 
-return: str right_oprnd 
+FIND OPERANDS OF THE EXPRESSION
+brief: Looking for opearnds of the operation
+param: str exp, int op_i, str op
+return: list[l_oprnd, r_oprnd] 
 """
-def find_right_oprnd(exp, op):
+def find_oprnds(exp, op_i, op):
+    oprnds = []
+    #some kind of a switch
+    match op:
+        case '!':
+            print('!')
+        case 'nthrt':
+            print('rt')
+        case 'log':
+            print('log')
+        #default case
+        #case _:
 
-    return
+    l_part = exp[0:op_i]
+    r_part = exp[op_i + 1:]
+    oprnds.append(l_part)
+    oprnds.append(r_part)
+    return oprnds
 
 
 """
@@ -106,12 +113,14 @@ brief: Parsing the whole expression and dividing it to the seperate operations
 param: str exp, dict {oprtrs}
 return: dict{} of elementary operations and their order of execution
 """
-def exp_parse(exp, ops):
+def exp_parse(exp):
     #validation part
     if not bracket_pair_check:
         print("Missing bracket")
         return False
     
-    for key in ops.keys(): 
-        print(key)
+
+    exp_oprts = find_oprtrs(exp, oprtrs_set)
+    for op_i in exp_oprts:
+        print(find_oprnds(exp, op_i, exp_oprts[op_i]))
     return
