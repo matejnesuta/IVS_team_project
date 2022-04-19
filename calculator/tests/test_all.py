@@ -148,10 +148,115 @@ class TestFactorial:
     
     def test_pos(self):
         assert MF.factorial(3) == 6
+        
+    def test_posDot(self):
+        assert MF.factorial(5.0) == 120
     
     def test_nul(self):
         assert MF.factorial(0) == 1
         
+    #todo -5!
+        
     def test_float(self):
         MF.factorial(1.125)
         assert "Param is not an integer"
+        
+    #todo ostatni
+    
+
+class TestPow_n:
+    
+    def test_posPos(self):
+        assert MF.pow_n(2,2) == 4
+        
+    def test_posNeg(self):
+        MF.pow_n(2,-2)
+        assert "Exponent is not a natural number"
+    
+    def test_negPos(self):
+        assert MF.pow_n(-2,2) == 4
+    
+    def test_negNeg(self):
+        MF.pow_n(-2,-2)
+        assert "Exponent is not a natural number"
+        
+    def test_negOdd(self):
+        assert MF.pow_n(-2,3) == -8
+        
+    def test_intNul(self):
+        assert MF.pow_n(2,0) == 1
+    
+    def test_intNul(self):
+        assert MF.pow_n(2,-0) == 1
+        
+    def test_floatPos(self):
+        assert MF.pow_n(2.5,2) == 6.25
+    
+    def test_floatNeg(self):
+        MF.pow_n(2.5,-2)
+        assert "Exponent is not a natural number"
+        
+    def test_floatNegPos(self):
+        assert MF.pow_n(-2.5,2) == 6.25
+    
+    def test_floatNegNeg(self):
+        MF.pow_n(-2.5,-2)
+        assert "Exponent is not a natural number"
+
+    def test_floatNegOdd(self):
+        assert MF.pow_n(-2.5,3) == -15.625
+        
+    def test_intNul(self):
+        assert MF.pow_n(2.5,0) == 1
+    
+    def test_intNul(self):
+        assert MF.pow_n(2.5,-0) == 1
+    
+    def test_nulNul(self):
+        assert MF.pow_n(0,0) == 1
+        
+    def test_nulPos(self):
+        assert MF.pow_n(0,5) == 0
+        
+    #todo ^
+    
+    
+class TestLogx:
+        #b>0 b!=1 x>0
+        #todo names
+        #todo errors
+        
+    def test_one(self):
+        assert MF.logx(4,2) == 2
+        
+    def test_seven(self):
+        assert MF.logx(0.25,0.5) == 2
+        
+    def test_eight(self):
+        assert MF.logx(0.16,0.2) == 1.138646883853214
+        
+    def test_nine(self):
+        assert MF.logx(4,0.2) == -0.8613531161467861
+        
+    def test_ten(self):
+        assert MF.logx(0.25, 4) == -1
+        
+    def test_two(self):
+        MF.logx(4,1)
+        assert "Base must be ..."        
+    
+    def test_three(self):
+        MF.logx(4,0)
+        assert "Base must be..."
+        
+    def test_four(self):
+        MF.logx(4,-2)
+        assert "Base must be..."
+        
+    def test_five(self):
+        MF.logx(0,2)
+        assert "Something must be..."
+        
+    def test_six(self):
+        MF.logx(-2,2)
+        assert "Something must be..."
