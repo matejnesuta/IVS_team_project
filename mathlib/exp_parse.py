@@ -18,7 +18,7 @@ def str_to_int(s):
 
 
 """
-STRING TO INT
+STRING TO FLOAT
 brief: Converting string to float (if possible)
 param: str s
 return: int(s)
@@ -33,60 +33,8 @@ def str_to_float(s):
 
 
 """
-CHECKING PAIRS OF BRACKETS
-brief: Checking if there is always a complementary bracket
-param: str exp
-return: True / False
-"""
-def bracket_pair_check(exp):
-    n_left_br = 0
-    n_right_br = 0
-    for c in exp:
-        if c == '(':
-            n_left_br += 1
-        if c == ')':
-            n_right_br += 1
-        if n_right_br > n_left_br:
-            return False
-    return True if n_left_br == n_right_br else False
-
-
-"""
-FIND COMPLEMENTARY BRACKET
-brief: Based on the index of the bracket finds its complementary bracket
-param: str exp, int first_i, bool rev
-return: int sec_i
-"""
-def find_comp_br(exp, br_i, rev):
-    n_left_br = 0
-    n_right_br = 0
-
-    #iterating through expression backwards
-    if rev:
-        n_right_br = 1
-        for i in range(br_i - 1, -1, -1):
-            if exp[i] == '(':
-                n_left_br += 1
-            if exp[i] == ')':
-                n_right_br += 1
-            if n_left_br == n_right_br:
-                return i 
-
-    else:
-        n_left_br = 1
-        for i in range(br_i + 1, len(exp)):
-            if exp[i] == '(':
-                n_left_br += 1
-            if exp[i] == ')':
-                n_right_br += 1
-            if n_left_br == n_right_br:
-                return i
-    return False
-
-
-"""
 FIND NEXT OPERATOR
-brief:
+brief: Looking for the closest operator
 param: str exp, int i, bool rev
 return int next_op
 """
@@ -95,6 +43,7 @@ def find_next_oprtr(exp, i, rev):
     #operator offset - number of characters between i and the next operator
     op_off = len(exp)
     next_op_i = -1
+    next_op = ''
     for op in oprtrs_set:
         if rev:
             found_op[op] = exp.find(op, 0, i)
@@ -106,11 +55,13 @@ def find_next_oprtr(exp, i, rev):
             if found_op[v] != -1 and (i - found_op[v]) < op_off:
                 op_off = i - found_op[v]
                 next_op_i = found_op[v]
+                next_op = v
         else:
             if found_op[v] != -1 and (found_op[v] - i) < op_off:
                 op_off = found_op[v] - i
                 next_op_i = found_op[v]
-    return next_op_i
+                next_op = v
+    return {next_op: next_op_i}
 
 
 """
@@ -144,41 +95,11 @@ def find_oprnds(exp, op_i, op):
     oprnds = {}
     match op:
         case '!':
-            if exp[op_i - 1] == ')':
-                end_br = find_comp_br(exp, op_i - 1, True)
-                params = exp[end_br + 1:op_i - 1]
-                oprnds['l_oprnd'] = params
-                oprnds['r_oprnd'] = None
-            else:
-                
-                pass
+            pass
         case 'nthrt':
-            #arguments of nth root must be in brackets 
-            #the offset stands for len(nthrt)
-            if exp[op_i + 5] != '(':
-                return False
-            else:
-                end_br = find_comp_br(exp, op_i + 5, False)
-                params = exp[op_i + 6:end_br] 
-                ops = params.split(',')
-                if len(ops) != 2:
-                    return False
-                oprnds['l_oprnd'] = ops[0]
-                oprnds['r_oprnd'] = ops[1]
+            pass
         case 'log':
-            #arguments of logarithm must be in brackets 
-            #the offset is stands for len(log)
-            if exp[op_i + 3] != '(':
-                return False
-            else:
-                end_br = find_comp_br(exp, op_i + 3, False)
-                params = exp[op_i + 4:end_br] 
-                ops = params.split(',')
-                if len(ops) != 2:
-                    return False
-                oprnds['l_oprnd'] = ops[0]
-                oprnds['r_oprnd'] = ops[1]
-        #default case
+            pass
         case _:
             pass
     return oprnds
@@ -202,12 +123,4 @@ return: dict{} of elementary operations and their order of execution
 list[{i: oprtr, pr: n}, {l_op: l_oprnd, r_op: r_oprnd}]
 """
 def exp_parse(exp):
-    #validation part
-    if not bracket_pair_check:
-        print("Missing bracket")
-        return False
-    
-    exp_oprts = find_oprtrs(exp)
-    for op_i in exp_oprts:
-        print(find_oprnds(exp, op_i, exp_oprts[op_i]))
     return
