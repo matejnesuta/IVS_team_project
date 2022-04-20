@@ -81,6 +81,36 @@ def find_comp_br(exp, br_i, rev):
                 n_right_br += 1
             if n_left_br == n_right_br:
                 return i
+    return False
+
+
+"""
+FIND NEXT OPERATOR
+brief:
+param: str exp, int i, bool rev
+return int next_op
+"""
+def find_next_oprtr(exp, i, rev):
+    found_op = {}
+    #operator offset - number of characters between i and the next operator
+    op_off = len(exp)
+    next_op_i = -1
+    for op in oprtrs_set:
+        if rev:
+            found_op[op] = exp.find(op, 0, i)
+        else:
+            found_op[op] = exp.find(op, i + 1)
+
+    for v in found_op:
+        if rev:
+            if found_op[v] != -1 and (i - found_op[v]) < op_off:
+                op_off = i - found_op[v]
+                next_op_i = found_op[v]
+        else:
+            if found_op[v] != -1 and (found_op[v] - i) < op_off:
+                op_off = found_op[v] - i
+                next_op_i = found_op[v]
+    return next_op_i
 
 
 """
@@ -114,7 +144,14 @@ def find_oprnds(exp, op_i, op):
     oprnds = {}
     match op:
         case '!':
-            pass
+            if exp[op_i - 1] == ')':
+                end_br = find_comp_br(exp, op_i - 1, True)
+                params = exp[end_br + 1:op_i - 1]
+                oprnds['l_oprnd'] = params
+                oprnds['r_oprnd'] = None
+            else:
+                
+                pass
         case 'nthrt':
             #arguments of nth root must be in brackets 
             #the offset stands for len(nthrt)
@@ -124,6 +161,8 @@ def find_oprnds(exp, op_i, op):
                 end_br = find_comp_br(exp, op_i + 5, False)
                 params = exp[op_i + 6:end_br] 
                 ops = params.split(',')
+                if len(ops) != 2:
+                    return False
                 oprnds['l_oprnd'] = ops[0]
                 oprnds['r_oprnd'] = ops[1]
         case 'log':
@@ -135,6 +174,8 @@ def find_oprnds(exp, op_i, op):
                 end_br = find_comp_br(exp, op_i + 3, False)
                 params = exp[op_i + 4:end_br] 
                 ops = params.split(',')
+                if len(ops) != 2:
+                    return False
                 oprnds['l_oprnd'] = ops[0]
                 oprnds['r_oprnd'] = ops[1]
         #default case
