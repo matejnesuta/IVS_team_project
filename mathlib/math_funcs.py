@@ -98,4 +98,9 @@ param: float x, float b
 return: float log(x, b)
 """
 def logx(x, b):
-    return log(x, b)
+    try:
+        res = log(x, b)
+    except ValueError:
+        print("Invalid parameters")
+        return False
+    return res
