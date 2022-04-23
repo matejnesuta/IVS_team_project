@@ -191,19 +191,19 @@ class TestPow_n:
     def test_floatNeg(self):
         assert MF.pow_n(2.5,-2) == False 
         
-    def test_floatNegPos(self):
+    def test_floatNegIntPos(self):
         assert MF.pow_n(-2.5,2) == 6.25
     
-    def test_floatNegNeg(self):
+    def test_floatNegIntNeg(self):
         assert MF.pow_n(-2.5,-2) == False 
 
     def test_floatNegOdd(self):
         assert MF.pow_n(-2.5,3) == -15.625
         
-    def test_intNul(self):
+    def test_floatNul(self):
         assert MF.pow_n(2.5,0) == 1
     
-    def test_intNul(self):
+    def test_floatNulNeg(self):
         assert MF.pow_n(2.5,-0) == 1
     
     def test_nulNul(self):
@@ -211,16 +211,38 @@ class TestPow_n:
         
     def test_nulPos(self):
         assert MF.pow_n(0,5) == 0
+
+    def test_intPosfloatPos(self):
+        assert MF.pow_n(2,2.5) == False
+
+    def test_intNegfloatPos(self):
+        assert MF.pow_n(-2,2.5) == False
+
+    def test_intPosfloatNeg(self):
+        assert MF.pow_n(2,-2.5) == False
+
+    def test_intNegfloatNeg(self):
+        assert MF.pow_n(-2,-2.5) == False
+
+    def test_floatPosfloatPos(self):
+        assert MF.pow_n(2.5,2.5) == False
+    
+    def test_floatNegfloatPos(self):
+        assert MF.pow_n(-2.5,2.5) == False
+
+    def test_floatPosfloatNeg(self):
+        assert MF.pow_n(2.5,-2.5) == False
+    
+    def test_floatNegfloatNeg(self):
+        assert MF.pow_n(-2.5,-2.5) == False
         
     #todo ^
     
     
 class TestLogx:
         #b>0 b!=1 x>0
-        #todo names
         #todo errors
 
-        
     def test_intPosPos(self):
         assert MF.logx(4,2) == 2
         
