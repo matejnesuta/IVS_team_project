@@ -122,10 +122,6 @@ class TestDiv:
     def test_intFloat(self):
         assert MF.div(2.5,1) == 2.5
         
-    def test_nul(self):
-        MF.div(0,0)
-        assert "Division by zero" 
-        
     def test_nulInt(self):
         assert MF.div(0,1) == 0
         
@@ -133,20 +129,17 @@ class TestDiv:
         assert MF.div(0,1.125) == 0
         
     def test_nul(self):
-        MF.div(0,0)
-        assert "Division by zero" 
+        assert MF.div(0,0) == False
         
     def test_intNul(self):
-        MF.div(1,0)
-        assert "Division by zero" 
+        assert MF.div(1,0) == False
         
     def test_floatNul(self):
-        MF.div(1.125,0)
-        assert "Division by zero" 
+        assert MF.div(1.125,0) == False
         
 class TestFactorial:
     
-    def test_pos(self):
+    def test_intPos(self):
         assert MF.factorial(3) == 6
         
     def test_posDot(self):
@@ -157,9 +150,14 @@ class TestFactorial:
         
     #todo -5!
         
-    def test_float(self):
-        MF.factorial(1.125)
-        assert "Param is not an integer"
+    def test_floatPos(self):
+        assert MF.factorial(1.125) == False
+
+    def test_floatNeg(self):
+        assert MF.factorial(-1.125) == False
+
+    def test_neg(self):
+        assert MF.factorial(-5) == False
         
     #todo ostatni
     
@@ -170,15 +168,13 @@ class TestPow_n:
         assert MF.pow_n(2,2) == 4
         
     def test_posNeg(self):
-        MF.pow_n(2,-2)
-        assert "Exponent is not a natural number"
+        assert MF.pow_n(2,-2) == False
     
     def test_negPos(self):
         assert MF.pow_n(-2,2) == 4
     
     def test_negNeg(self):
-        MF.pow_n(-2,-2)
-        assert "Exponent is not a natural number"
+        assert MF.pow_n(-2,-2) == False
         
     def test_negOdd(self):
         assert MF.pow_n(-2,3) == -8
@@ -193,15 +189,13 @@ class TestPow_n:
         assert MF.pow_n(2.5,2) == 6.25
     
     def test_floatNeg(self):
-        MF.pow_n(2.5,-2)
-        assert "Exponent is not a natural number"
+        assert MF.pow_n(2.5,-2) == False 
         
     def test_floatNegPos(self):
         assert MF.pow_n(-2.5,2) == 6.25
     
     def test_floatNegNeg(self):
-        MF.pow_n(-2.5,-2)
-        assert "Exponent is not a natural number"
+        assert MF.pow_n(-2.5,-2) == False 
 
     def test_floatNegOdd(self):
         assert MF.pow_n(-2.5,3) == -15.625
@@ -225,38 +219,34 @@ class TestLogx:
         #b>0 b!=1 x>0
         #todo names
         #todo errors
+
         
-    def test_one(self):
+    def test_intPosPos(self):
         assert MF.logx(4,2) == 2
         
-    def test_seven(self):
+    def test_floatPosPos(self):
         assert MF.logx(0.25,0.5) == 2
         
-    def test_eight(self):
+    def test_why(self):
         assert MF.logx(0.16,0.2) == 1.138646883853214
         
-    def test_nine(self):
+    def test_intFloatPosPos(self):
         assert MF.logx(4,0.2) == -0.8613531161467861
         
-    def test_ten(self):
+    def test_floatIntPosPos(self):
         assert MF.logx(0.25, 4) == -1
         
-    def test_two(self):
-        MF.logx(4,1)
-        assert "Base must be ..."        
+    def test_baseOne(self):
+        assert MF.logx(4,1) == False
     
-    def test_three(self):
-        MF.logx(4,0)
-        assert "Base must be..."
+    def test_baseNul(self):
+        assert MF.logx(4,0) == False
         
-    def test_four(self):
-        MF.logx(4,-2)
-        assert "Base must be..."
+    def test_baseNeg(self):
+        assert MF.logx(4,-2) == False
         
-    def test_five(self):
-        MF.logx(0,2)
-        assert "Something must be..."
+    def test_argNul(self):
+        assert MF.logx(0,2) == False
         
-    def test_six(self):
-        MF.logx(-2,2)
-        assert "Something must be..."
+    def test_argNeg(self):
+        assert MF.logx(-2,2) == False
