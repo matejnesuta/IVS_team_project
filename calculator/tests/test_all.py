@@ -33,7 +33,6 @@ class TestAdd:
     def test_nulFloat(self):
         assert MF.add(0,1.125) == 1.125
         
-
 class TestSub:
     
     def test_intPos(self):
@@ -66,7 +65,6 @@ class TestSub:
     def test_nulFloat(self):
         assert MF.sub(0,1.125) == -1.125
         
-
 class TestMul:
     
     def test_intPos(self):
@@ -158,9 +156,6 @@ class TestFactorial:
 
     def test_neg(self):
         assert MF.factorial(-5) == False
-        
-    #todo ostatni
-    
 
 class TestPow_n:
     
@@ -236,8 +231,6 @@ class TestPow_n:
     def test_floatNegfloatNeg(self):
         assert MF.pow_n(-2.5,-2.5) == False
         
-    #todo ^
-
 class TestNrh_root:
 
     def test_intPosIntPos(self):
@@ -309,13 +302,6 @@ class TestNrh_root:
     def test_floatPosfloatNeg(self):
         assert MF.nth_root(3.375,-3.375) == False
 
-
-
-
-    
-
-    
-    
 class TestLogx:
         #b>0 b!=1 x>0
         #todo errors
