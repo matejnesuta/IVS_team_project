@@ -237,6 +237,83 @@ class TestPow_n:
         assert MF.pow_n(-2.5,-2.5) == False
         
     #todo ^
+
+class TestNrh_root:
+
+    def test_intPosIntPos(self):
+        assert MF.nth_root(4,2) == 2
+
+    def test_intPosIntNeg(self):
+        assert MF.nth_root(4,-2) == False
+
+    def test_intPosNul(self):
+        assert MF.nth_root(4,0) == False
+
+    def test_intPosfloatPos(self):
+        assert MF.nth_root(4,3.375) == 1.5079541804033867
+
+    def test_intPosfloatNeg(self):
+        assert MF.nth_root(4,-3.375) == False
+
+    def test_intNegIntOdd(self):
+        assert MF.nth_root(-8,3) == -2
+
+    def test_intNegIntEven(self):
+        assert MF.nth_root(-8,2) == False
+
+    def test_intNegIntNeg(self):
+        assert MF.nth_root(-2,-2) == False
+
+    def test_IntNegNul(self):
+        assert MF.nth_root(-2,0) == False
+
+    def test_intNegfloatPos(self):
+        assert MF.nth_root(-2,3.375) == False
+
+    def test_intNegfloatNeg(self):
+        assert MF.nth_root(-2,-3.375) == False
+
+    def test_nulIntPos(self):
+        assert MF.nth_root(0,43) == 0
+
+    def test_nulIntNeg(self):
+        assert MF.nth_root(0,-43) == False
+
+    def test_nulNul(self):
+        assert MF.nth_root(0,0) == False
+
+    def test_nulFloatPos(self):
+        assert MF.nth_root(0,3.375) == 0
+
+    def test_nulFloatNeg(self):
+        assert MF.nth_root(0,-3.375) == False
+
+    def test_floatPosIntPos(self):
+        assert MF.nth_root(3.375,3) == 1.5
+
+    def test_floatNegOdd(self):
+        assert MF.nth_root(-3.375,3) == -1.5
+
+    def test_floatNegEven(self):
+        assert MF.nth_root(-3.375,2) == False
+
+    def test_floatPosIntNeg(self):
+        assert MF.nth_root(3.375,-3) == False
+
+    def test_floatPosNul(self):
+        assert MF.nth_root(3.375,0) == False
+
+    def test_floatPosfloatPos(self):
+        assert MF.nth_root(3.375,3.375) == 1.4339221176344628
+
+    def test_floatPosfloatNeg(self):
+        assert MF.nth_root(3.375,-3.375) == False
+
+
+
+
+    
+
     
     
 class TestLogx:
