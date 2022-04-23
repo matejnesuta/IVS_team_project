@@ -41,4 +41,4 @@ $(VENV)/bin/activate: requirements.txt
 
 
 clean:
-	rm -rf $(VENV)run: env/bin/activate
+	rm -rf $(VENV)
