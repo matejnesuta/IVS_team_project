@@ -1,6 +1,7 @@
 import pytest
 import matlib.math_funcs as MF
 
+#refactoring needed 
 class TestAdd:
     
     def test_intPos(self):
@@ -32,7 +33,7 @@ class TestAdd:
         
     def test_nulFloat(self):
         assert MF.add(0,1.125) == 1.125
-        
+
 class TestSub:
     
     def test_intPos(self):
@@ -303,8 +304,6 @@ class TestNrh_root:
         assert MF.nth_root(3.375,-3.375) == False
 
 class TestLogx:
-        #b>0 b!=1 x>0
-        #todo errors
 
     def test_intPosPos(self):
         assert MF.logx(4,2) == 2
