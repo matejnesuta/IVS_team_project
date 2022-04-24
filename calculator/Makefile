@@ -2,7 +2,8 @@ VENV = env
 PYTHON = $(VENV)/bin/python
 PIP = $(VENV)/bin/pip
 APP = calculator.py
-
+PROFILER = profiling.py
+DATA = data.txt
 .DEFAULT_GOAL = all
 
 all:
@@ -17,8 +18,8 @@ test:
 doc:
 	@echo "doc"
 
-profile:
-	@echo "profile"
+profile: $(VENV)/bin/activate
+	$(PYTHON) $(PROFILER) < $(DATA)
 
 help:
 	@echo "---------------HELP-----------------"
