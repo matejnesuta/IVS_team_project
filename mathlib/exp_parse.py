@@ -17,35 +17,16 @@ oprtrs_pr = {
 #FIXME: handling negative numbers
 
 
+#all negative numbers must be in brackets
+#TODO: works for now, but primitive
 """
-STRING TO INT
-brief: Converting string to integer (if possible)
-param: str s
-return: int(str)
+IS A NEGATIVE NUMBER
+brief: Checking if '-' stands for negative number or an operator
+param: str exp, int sign_i
+return: True / False
 """
-def str_to_int(s):
-    try:
-        res = int(s)
-    except ValueError:
-        print("Argument is not an integer")
-        return False
-    return res
-
-
-"""
-STRING TO FLOAT
-brief: Converting string to float (if possible)
-param: str s
-return: int(s)
-"""
-def str_to_float(s):
-    try:
-        res = float(s)
-    except ValueError:
-        print("Argument is not a number")
-        return False
-    return res
-
+def is_neg_num(exp, sign_i):
+    return True if exp[sign_i - 1] == '(' else False
 
 """
 CHECKING PAIRS OF BRACKETS
@@ -66,6 +47,7 @@ def bracket_pair_check(exp):
     return True if n_left_br == n_right_br else False
 
 
+#FIXME: return -1, if not found
 """
 FIND COMPLEMENTARY BRACKET
 brief: Based on the index of the bracket finds its complementary bracket
@@ -116,6 +98,7 @@ def find_next_oprtr(exp, i, rev):
         else:
             found_op[op] = exp.find(op, i + 1)
 
+    
     for v in found_op:
         if rev:
             if found_op[v] != -1 and (i - found_op[v]) < op_off:
@@ -143,6 +126,9 @@ def find_oprtrs(exp):
     for op in oprtrs_set:
         while exp.find(op, f_p) != -1:
             op_i = exp.find(op, f_p)
+            if op == '-' and is_neg_num(exp, op_i):
+                f_p = op_i + 1
+                continue
             found_oprtrs[op_i] = op
             f_p = op_i + 1
         f_p = 0
