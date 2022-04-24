@@ -48,6 +48,57 @@ def str_to_float(s):
 
 
 """
+CHECKING PAIRS OF BRACKETS
+brief: Checking if there is always a complementary bracket
+param: str exp
+return: True / False
+"""
+def bracket_pair_check(exp):
+    n_left_br = 0
+    n_right_br = 0
+    for c in exp:
+        if c == '(':
+            n_left_br += 1
+        if c == ')':
+            n_right_br += 1
+        if n_right_br > n_left_br:
+            return False
+    return True if n_left_br == n_right_br else False
+
+
+"""
+FIND COMPLEMENTARY BRACKET
+brief: Based on the index of the bracket finds its complementary bracket
+param: str exp, int first_i, bool rev
+return: int sec_i
+"""
+def find_comp_br(exp, br_i, rev):
+    n_left_br = 0
+    n_right_br = 0
+
+    #iterating through expression backwards
+    if rev:
+        n_right_br = 1
+        for i in range(br_i - 1, -1, -1):
+            if exp[i] == '(':
+                n_left_br += 1
+            if exp[i] == ')':
+                n_right_br += 1
+            if n_left_br == n_right_br:
+                return i 
+
+    else:
+        n_left_br = 1
+        for i in range(br_i + 1, len(exp)):
+            if exp[i] == '(':
+                n_left_br += 1
+            if exp[i] == ')':
+                n_right_br += 1
+            if n_left_br == n_right_br:
+                return i
+
+
+"""
 FIND NEXT OPERATOR
 brief: Looking for the closest operator
 param: str exp, int i, bool rev
@@ -121,11 +172,29 @@ def find_oprnds(exp, op_i, op):
                 oprnds['l_op'] = l_oprnd
                 oprnds['r_op'] = None
                 
-        case 'nthrt':
-            pass
+        case 'nrt':
+            #arguments of nth root must be in brackets 
+            #the offset stands for len(nthrt)
+            if exp[op_i + 3] != '(':
+                return False
+            else:
+                end_br = find_comp_br(exp, op_i + 3, False)
+                params = exp[op_i + 4:end_br] 
+                ops = params.split(',')
+                oprnds['l_oprnd'] = ops[0]
+                oprnds['r_oprnd'] = ops[1]
 
         case 'log':
-            pass
+            #arguments of logarithm must be in brackets 
+            #the offset is stands for len(log)
+            if exp[op_i + 3] != '(':
+                return False
+            else:
+                end_br = find_comp_br(exp, op_i + 3, False)
+                params = exp[op_i + 4:end_br] 
+                ops = params.split(',')
+                oprnds['l_oprnd'] = ops[0]
+                oprnds['r_oprnd'] = ops[1]
 
         case _:
             l_oprtr_d = find_next_oprtr(exp, op_i, True) 
@@ -139,14 +208,12 @@ def find_oprnds(exp, op_i, op):
                 l_oprnd = exp[l_oprtr_d[l_oprtr] + 1:op_i]
                 oprnds['l_op'] = l_oprnd
 
-
             if r_oprtr == '':
                 r_oprnd = exp[op_i + 1:]
                 oprnds['r_op'] = r_oprnd
             else:
                 r_oprnd = exp[op_i + 1:r_oprtr_d[r_oprtr]]
                 oprnds['r_op'] = r_oprnd
-                pass
 
     return oprnds
 
@@ -181,6 +248,3 @@ def exp_parse(exp):
         ops_list.append(op_dict)
         op_dict = {}
     return ops_list
-
-e = "2!+3*5^2"
-print(exp_parse(e))
