@@ -1,5 +1,20 @@
 #Set with all operators
-oprtrs_set = {"+", "-", "*", "/", "^", "!", "nthrt", "log"}
+oprtrs_set = {'+', '-', '*', '/', '^', '!', 'nrt', 'log'}
+
+#Operators priority
+oprtrs_pr = {
+    'nrt': 3,
+    'log': 3,
+    '!': 3,
+    '^': 2,
+    '*': 1,
+    '/': 1,
+    '+': 0,
+    '-': 0
+}
+
+
+#FIXME: handling negative numbers
 
 
 """
@@ -95,13 +110,44 @@ def find_oprnds(exp, op_i, op):
     oprnds = {}
     match op:
         case '!':
-            pass
+            n_op_d = find_next_oprtr(exp, op_i, True)
+            n_op = list(n_op_d)[0]
+            if n_op == '':
+                l_oprnd = exp[:op_i]
+                oprnds['l_op'] = l_oprnd
+                oprnds['r_op'] = None
+            else:
+                l_oprnd = exp[n_op_d[n_op] + 1:op_i]
+                oprnds['l_op'] = l_oprnd
+                oprnds['r_op'] = None
+                
         case 'nthrt':
             pass
+
         case 'log':
             pass
+
         case _:
-            pass
+            l_oprtr_d = find_next_oprtr(exp, op_i, True) 
+            l_oprtr = list(l_oprtr_d)[0]
+            r_oprtr_d = find_next_oprtr(exp, op_i, False) 
+            r_oprtr = list(r_oprtr_d)[0]
+            if l_oprtr == '':
+                l_oprnd = exp[:op_i]
+                oprnds['l_op'] = l_oprnd
+            else:
+                l_oprnd = exp[l_oprtr_d[l_oprtr] + 1:op_i]
+                oprnds['l_op'] = l_oprnd
+
+
+            if r_oprtr == '':
+                r_oprnd = exp[op_i + 1:]
+                oprnds['r_op'] = r_oprnd
+            else:
+                r_oprnd = exp[op_i + 1:r_oprtr_d[r_oprtr]]
+                oprnds['r_op'] = r_oprnd
+                pass
+
     return oprnds
 
 
@@ -120,7 +166,21 @@ EXPRESSION PARSER
 brief: Parsing the whole expression and dividing it to the seperate operations
 param: str exp, dict {oprtrs}
 return: dict{} of elementary operations and their order of execution
-list[{i: oprtr, pr: n}, {l_op: l_oprnd, r_op: r_oprnd}]
+list[{i: oprtr, l_op: l_oprnd, r_op: r_oprnd} pr: n}]
 """
 def exp_parse(exp):
-    return
+    oprtrs = find_oprtrs(exp)
+    #dict of operation - operator, operands and priority of calculation
+    op_dict = {}
+    #list of dict{operation}
+    ops_list = []
+    for oprtr in oprtrs:
+        op_dict[oprtr] = oprtrs[oprtr] 
+        op_dict.update(find_oprnds(exp, oprtr, oprtrs[oprtr]))
+        op_dict['pr'] = oprtrs_pr[oprtrs[oprtr]]
+        ops_list.append(op_dict)
+        op_dict = {}
+    return ops_list
+
+e = "2!+3*5^2"
+print(exp_parse(e))
