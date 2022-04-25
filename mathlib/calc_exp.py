@@ -33,6 +33,7 @@ def str_to_float(s):
     return res
 
 
+#TODO: uhlednejsi reseni 
 """
 UPDATE EXPRESSION
 brief: Replaces operataion with its result
@@ -41,7 +42,15 @@ return: str up_exp
 """
 def update_exp(exp, op, res):
     cur_oprtr = op[list(op)[0]]
-    cur_op_str = f"{op['l_op']}{cur_oprtr}{op['r_op']}"
+    if cur_oprtr in '+-/*^':
+        cur_op_str = f"{op['l_op']}{cur_oprtr}{op['r_op']}"
+
+    if cur_oprtr == '!':
+        cur_op_str = f"{op['l_op']}{cur_oprtr}"
+
+    if cur_oprtr == 'nrt' or cur_oprtr == 'log':
+        cur_op_str = f"{cur_oprtr}({op['l_op']},{op['r_op']})"
+
     up_exp = exp.replace(cur_op_str, str(res))
     return up_exp
 
@@ -104,6 +113,8 @@ def calc_output(exp):
             cur_res = math_funcs.logx(l_op, r_op)
     #TODO: format result
     calc_res += cur_res
-    ops = exp_parse(update_exp(exp, cur_op, cur_res))
+    exp = update_exp(exp, cur_op, cur_res)
+    print(exp)
+    ops = exp_parse(exp)
     
     return calc_res

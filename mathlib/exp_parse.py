@@ -153,8 +153,8 @@ def find_oprnds(exp, op_i, oprtrs):
                 end_br = find_comp_br(exp, op_i + 3, False)
                 params = exp[op_i + 4:end_br] 
                 ops = params.split(',')
-                oprnds['l_oprnd'] = ops[0]
-                oprnds['r_oprnd'] = ops[1]
+                oprnds['l_op'] = ops[0]
+                oprnds['r_op'] = ops[1]
 
         case 'log':
             #arguments of logarithm must be in brackets 
@@ -165,8 +165,8 @@ def find_oprnds(exp, op_i, oprtrs):
                 end_br = find_comp_br(exp, op_i + 3, False)
                 params = exp[op_i + 4:end_br] 
                 ops = params.split(',')
-                oprnds['l_oprnd'] = ops[0]
-                oprnds['r_oprnd'] = ops[1]
+                oprnds['l_op'] = ops[0]
+                oprnds['r_op'] = ops[1]
 
         case _:
             l_oprtr = find_next_oprtr(oprtrs, op_i, True) 
