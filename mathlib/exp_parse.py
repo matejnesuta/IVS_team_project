@@ -14,7 +14,6 @@ oprtrs_pr = {
 }
 
 
-#all negative numbers must be in brackets
 #TODO: works for now, but primitive
 """
 IS A NEGATIVE NUMBER
@@ -218,3 +217,7 @@ def exp_parse(exp):
         ops_list.append(op_dict)
         op_dict = {}
     return ops_list
+
+e = "5!+(-6)^2"
+print(exp_parse(e))
+
