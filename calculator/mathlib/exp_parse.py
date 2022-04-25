@@ -204,7 +204,7 @@ param: str exp, dict {oprtrs}
 return: dict{} of elementary operations and their order of execution
 list[{i: oprtr, l_op: l_oprnd, r_op: r_oprnd} pr: n}]
 """
-def exp_parse(exp):
+def parse_exp(exp):
     oprtrs = find_oprtrs(exp)
     #dict of operation - operator, operands and priority of calculation
     op_dict = {}
@@ -217,7 +217,3 @@ def exp_parse(exp):
         ops_list.append(op_dict)
         op_dict = {}
     return ops_list
-
-e = "5!+(-6)^2"
-print(exp_parse(e))
-

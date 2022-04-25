@@ -1,5 +1,5 @@
-from . import math_funcs, exp_parse as prdel
-#from . import exp_parse
+import math_funcs
+from exp_parse import parse_exp
 
 
 """
@@ -78,7 +78,7 @@ param: list[ops]
 return: float output
 """
 def calc_output(exp):
-    ops = exp_parse(exp)
+    ops = parse_exp(exp)
     n_ops = len(ops)
     res = exp
     for i in range(n_ops):
@@ -137,8 +137,6 @@ def calc_output(exp):
         #TODO: format result
         res_to_exp = f"({res})" if res < 0 else res
         exp = update_exp(exp, cur_op, res_to_exp)
-        ops = exp_parse(exp)
-        print(res)
-        print(exp)
+        ops = parse_exp(exp)
         
     return res
