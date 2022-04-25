@@ -14,9 +14,6 @@ oprtrs_pr = {
 }
 
 
-#FIXME: handling negative numbers
-
-
 #all negative numbers must be in brackets
 #TODO: works for now, but primitive
 """
@@ -84,33 +81,21 @@ def find_comp_br(exp, br_i, rev):
 FIND NEXT OPERATOR
 brief: Looking for the closest operator
 param: str exp, int i, bool rev
-return int next_op
+return int next_op_i, -1 if there isn't a next operator
 """
-def find_next_oprtr(exp, i, rev):
-    found_op = {}
-    #operator offset - number of characters between i and the next operator
-    op_off = len(exp)
-    next_op_i = -1
-    next_op = ''
-    for op in oprtrs_set:
+def find_next_oprtr(oprtrs, op_i, rev):
+    op_i_list = list(oprtrs)
+    #next operator index in the op_i_list
+    next_op_l_i = op_i_list.index(op_i)
+    #checking for index out of range
+    if (next_op_l_i == 0 and rev) or (next_op_l_i == len(op_i_list) - 1 and not rev):
+        return -1
+    else:
         if rev:
-            found_op[op] = exp.find(op, 0, i)
+            next_op_l_i -= 1
         else:
-            found_op[op] = exp.find(op, i + 1)
-
-    
-    for v in found_op:
-        if rev:
-            if found_op[v] != -1 and (i - found_op[v]) < op_off:
-                op_off = i - found_op[v]
-                next_op_i = found_op[v]
-                next_op = v
-        else:
-            if found_op[v] != -1 and (found_op[v] - i) < op_off:
-                op_off = found_op[v] - i
-                next_op_i = found_op[v]
-                next_op = v
-    return {next_op: next_op_i}
+            next_op_l_i += 1
+    return op_i_list[next_op_l_i]
 
 
 """
@@ -140,21 +125,21 @@ def find_oprtrs(exp):
 """
 FIND OPERANDS OF THE EXPRESSION
 brief: Looking for opearnds of the operation
-param: str exp, int op_i, str op
+param: str exp, int op_i, str op, dict{} oprtrs
 return: dict{l_op: l_oprnd, r_op: r_oprnd} 
 """
-def find_oprnds(exp, op_i, op):
+def find_oprnds(exp, op_i, oprtrs):
+    op = oprtrs[op_i]
     oprnds = {}
     match op:
         case '!':
-            n_op_d = find_next_oprtr(exp, op_i, True)
-            n_op = list(n_op_d)[0]
-            if n_op == '':
+            n_op = find_next_oprtr(oprtrs, op_i, True)
+            if n_op == -1:
                 l_oprnd = exp[:op_i]
                 oprnds['l_op'] = l_oprnd
                 oprnds['r_op'] = None
             else:
-                l_oprnd = exp[n_op_d[n_op] + 1:op_i]
+                l_oprnd = exp[n_op + 1:op_i]
                 oprnds['l_op'] = l_oprnd
                 oprnds['r_op'] = None
                 
@@ -183,22 +168,20 @@ def find_oprnds(exp, op_i, op):
                 oprnds['r_oprnd'] = ops[1]
 
         case _:
-            l_oprtr_d = find_next_oprtr(exp, op_i, True) 
-            l_oprtr = list(l_oprtr_d)[0]
-            r_oprtr_d = find_next_oprtr(exp, op_i, False) 
-            r_oprtr = list(r_oprtr_d)[0]
-            if l_oprtr == '':
+            l_oprtr = find_next_oprtr(oprtrs, op_i, True) 
+            r_oprtr = find_next_oprtr(oprtrs, op_i, False) 
+            if l_oprtr == -1:
                 l_oprnd = exp[:op_i]
                 oprnds['l_op'] = l_oprnd
             else:
-                l_oprnd = exp[l_oprtr_d[l_oprtr] + 1:op_i]
+                l_oprnd = exp[l_oprtr + 1:op_i]
                 oprnds['l_op'] = l_oprnd
 
             if r_oprtr == '':
                 r_oprnd = exp[op_i + 1:]
                 oprnds['r_op'] = r_oprnd
             else:
-                r_oprnd = exp[op_i + 1:r_oprtr_d[r_oprtr]]
+                r_oprnd = exp[op_i + 1:r_oprtr]
                 oprnds['r_op'] = r_oprnd
 
     return oprnds
@@ -229,7 +212,7 @@ def exp_parse(exp):
     ops_list = []
     for oprtr in oprtrs:
         op_dict[oprtr] = oprtrs[oprtr] 
-        op_dict.update(find_oprnds(exp, oprtr, oprtrs[oprtr]))
+        op_dict.update(find_oprnds(exp, oprtr, oprtrs))
         op_dict['pr'] = oprtrs_pr[oprtrs[oprtr]]
         ops_list.append(op_dict)
         op_dict = {}
