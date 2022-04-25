@@ -43,3 +43,4 @@ $(VENV)/bin/activate: requirements.txt
 
 clean:
 	rm -rf $(VENV)
+	rm *.prof
