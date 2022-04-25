@@ -25,6 +25,7 @@ return: True / False
 def is_neg_num(exp, sign_i):
     return True if exp[sign_i - 1] == '(' else False
 
+
 """
 CHECKING PAIRS OF BRACKETS
 brief: Checking if there is always a complementary bracket
@@ -177,7 +178,7 @@ def find_oprnds(exp, op_i, oprtrs):
                 l_oprnd = exp[l_oprtr + 1:op_i]
                 oprnds['l_op'] = l_oprnd
 
-            if r_oprtr == '':
+            if r_oprtr == -1:
                 r_oprnd = exp[op_i + 1:]
                 oprnds['r_op'] = r_oprnd
             else:
