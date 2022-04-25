@@ -44,3 +44,4 @@ $(VENV)/bin/activate: requirements.txt
 clean:
 	rm -rf $(VENV)
 	rm *.prof
+	rm -rf /calculator/mathlib/__pycache__
