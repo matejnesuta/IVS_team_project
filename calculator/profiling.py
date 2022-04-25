@@ -2,6 +2,7 @@ import re
 import sys
 import cProfile
 
+
 lines = sys.stdin.readlines()
 
 nums = ""
