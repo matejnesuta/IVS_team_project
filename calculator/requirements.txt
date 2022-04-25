@@ -1,0 +1,5 @@
+PyQt6==6.2.3
+PyQt6-Qt6==6.2.4
+PyQt6-sip==13.2.1
+snakeviz==2.1.1
+virtualenv==20.13.4
