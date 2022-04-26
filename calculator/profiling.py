@@ -40,18 +40,28 @@ profile = cProfile.Profile()
 profile.enable()
 
 sum = str(calc_output(nums))
-avg = str(calc_output(sum+"/"+count))
+if (sum[0]=='-'):
+        sum=to_neg_oprnd(sum)
 
+avg = str(calc_output(sum+"/"+count))
+if (avg[0]=='-'):
+        avg=to_neg_oprnd(avg)
 
 powSum = str(calc_output(expNums))
 b = str(calc_output(count+"*"+avg+"^2"))
 c = str(calc_output(powSum+"-"+b))
-print("count: ", count)
-print("avg: ", avg)
-print(b)
+if (c[0]=='-'):
+        c=to_neg_oprnd(c)
+
 sum2 = str(calc_output(sum+"-1"))
-print(c, sum2)
+
+if (sum2[0]=='-'):
+        sum2=to_neg_oprnd(sum2)
+
 d = str(calc_output(c+"/"+sum2))
+
+if (d[0]=='-'):
+        d=to_neg_oprnd(d)
 
 #TODO: FLIP CISEL TADY
 result = str(calc_output("nrt(2,"+d+")"))
