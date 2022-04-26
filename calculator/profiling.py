@@ -46,7 +46,11 @@ avg = str(calc_output(sum+"/"+count))
 powSum = str(calc_output(expNums))
 b = str(calc_output(count+"*"+avg+"^2"))
 c = str(calc_output(powSum+"-"+b))
+print("count: ", count)
+print("avg: ", avg)
+print(b)
 sum2 = str(calc_output(sum+"-1"))
+print(c, sum2)
 d = str(calc_output(c+"/"+sum2))
 
 #TODO: FLIP CISEL TADY

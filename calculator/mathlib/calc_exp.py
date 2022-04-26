@@ -79,9 +79,8 @@ return: float output
 """
 def calc_output(exp):
     ops = parse_exp(exp)
-    n_ops = len(ops)
     res = exp
-    for i in range(n_ops):
+    while len(ops) != 0:
         #sorting the list of operations by priority
         ops_pr_sorted = sorted(ops, reverse=True, key=lambda op: op['pr'])
         cur_op = ops_pr_sorted[0]
