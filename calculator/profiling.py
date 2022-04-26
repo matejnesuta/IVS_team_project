@@ -10,11 +10,15 @@ nums = ""
 for i in lines:
     nums+=i
 
-nums = re.sub(r"[ \t\n]+", "+", nums)
+nums = re.sub(r"([ \t\n\r])+", "+", nums)
 
 minus = (nums.split("+"))
 nums = ""
 for i in minus:
+    print(i)
+    if not (re.match(r"([-]?\d+)",i)):
+        raise SystemExit('spatne zadany vstup')
+    
     if (i[0]=='-'):
         nums+=to_neg_oprnd(i)+"+"
     else:
@@ -37,6 +41,7 @@ profile.enable()
 
 sum = str(calc_output(nums))
 avg = str(calc_output(sum+"/"+count))
+
 
 powSum = str(calc_output(expNums))
 b = str(calc_output(count+"*"+avg+"^2"))

@@ -18,8 +18,13 @@ test:
 doc:
 	@echo "doc"
 
-profile: $(VENV)/bin/activate
+dot:
+#apt install dot
+
+profile: $(VENV)/bin/activate dot
 	$(PYTHON) $(PROFILER) < $(DATA)
+	$(PYTHON) $(VENV)/lib/python3.10/site-packages/gprof2dot.py -f pstats profiling_calc.prof | dot -Tpng -o output.png
+	mv output.png ../profiling/vystup.png
 
 help:
 	@echo "---------------HELP-----------------"
@@ -43,5 +48,5 @@ $(VENV)/bin/activate: requirements.txt
 
 clean:
 	rm -rf $(VENV)
-	rm *.prof
-	rm -rf /calculator/mathlib/__pycache__
+	rm -f *.prof
+	rm -rf calculator/mathlib/__pycache__
