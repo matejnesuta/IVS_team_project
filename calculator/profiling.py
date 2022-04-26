@@ -10,6 +10,7 @@ nums = ""
 for i in lines:
     nums+=i
 
+nums = nums.strip()
 nums = re.sub(r"([ \t\n\r])+", "+", nums)
 
 minus = (nums.split("+"))
