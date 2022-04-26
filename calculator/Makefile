@@ -2,7 +2,8 @@ VENV = env
 PYTHON = $(VENV)/bin/python
 PIP = $(VENV)/bin/pip
 APP = calculator.py
-
+PROFILER = profiling.py
+DATA = data.txt
 .DEFAULT_GOAL = all
 
 all:
@@ -17,8 +18,13 @@ test:
 doc:
 	@echo "doc"
 
-profile:
-	@echo "profile"
+dot:
+#apt install dot
+
+profile: $(VENV)/bin/activate dot
+	$(PYTHON) $(PROFILER) < $(DATA)
+	$(PYTHON) $(VENV)/lib/python3.10/site-packages/gprof2dot.py -f pstats profiling_calc.prof | dot -Tpng -o output.png
+	mv output.png ../profiling/vystup.png
 
 help:
 	@echo "---------------HELP-----------------"
@@ -41,4 +47,6 @@ $(VENV)/bin/activate: requirements.txt
 
 
 clean:
-	rm -rf $(VENV)run: env/bin/activate
+	rm -rf $(VENV)
+	rm -f *.prof
+	rm -rf calculator/mathlib/__pycache__
