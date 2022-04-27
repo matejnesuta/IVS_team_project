@@ -12,8 +12,8 @@ all:
 pack:
 	@echo "pack"
 
-test:
-	@echo "test"
+test: $(VENV)/bin/activate
+	$(PYTHON) -m pytest
 
 doc:
 	@echo "doc"
@@ -50,3 +50,4 @@ clean:
 	rm -rf $(VENV)
 	rm -f *.prof
 	rm -rf calculator/mathlib/__pycache__
+	rm -rf __pycache__

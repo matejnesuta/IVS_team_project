@@ -1,5 +1,5 @@
 import pytest
-import matlib.math_funcs as MF
+import mathlib.math_funcs as MF
 
 #refactoring needed 
 class TestAdd:
