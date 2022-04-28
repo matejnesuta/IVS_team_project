@@ -1,7 +1,4 @@
-from cmath import exp
-
-
-#Set with all operators
+#Set of all operators
 oprtrs_set = {'+', '-', '*', '/', '^', '!', 'nrt', 'log'}
 
 #Operators priority
@@ -17,7 +14,6 @@ oprtrs_pr = {
 }
 
 
-#TODO: works for now, but primitive
 """
 IS A NEGATIVE NUMBER
 brief: Checking if '-' stands for negative number or an operator
@@ -55,39 +51,16 @@ def bracket_pair_check(exp):
 FIND COMPLEMENTARY BRACKET
 brief: Based on the index of the bracket finds its complementary bracket
 param: str exp, int first_i, bool rev
-return: int sec_i
+return: int sec_i / -1 if not found
 """
-def find_comp_br(exp, br_i, rev):
-    n_left_br = 0
-    n_right_br = 0
-
-    #iterating through expression backwards
-    if rev:
-        n_right_br = 1
-        for i in range(br_i - 1, -1, -1):
-            if exp[i] == '(':
-                n_left_br += 1
-            if exp[i] == ')':
-                n_right_br += 1
-            if n_left_br == n_right_br:
-                return i 
-
-    else:
-        n_left_br = 1
-        for i in range(br_i + 1, len(exp)):
-            if exp[i] == '(':
-                n_left_br += 1
-            if exp[i] == ')':
-                n_right_br += 1
-            if n_left_br == n_right_br:
-                return i
-    return -1
+def find_comp_br(exp, br_i):
+    return exp.find(')', br_i)
 
 """
 FIND NEXT OPERATOR
 brief: Looking for the closest operator
 param: str exp, int i, bool rev
-return int next_op_i, -1 if there isn't a next operator
+return int next_op_i, -1 if there is none
 """
 def find_next_oprtr(oprtrs, op_i, rev):
     op_i_list = list(oprtrs)
@@ -108,22 +81,26 @@ def find_next_oprtr(oprtrs, op_i, rev):
 FIND OPERATORS IN EXPRESSION
 brief: Looking for operators in the expression 
 param: str exp
-return: dict {index: oprtr}
+return: dict{index: oprtr}
 """
 def find_oprtrs(exp):
     found_oprtrs = {}
+    #position of the found operator
     f_p = 0
+    #index of the found operator
     op_i = 0
     for op in oprtrs_set:
+        #f_p is used in find method as a starting position
         while exp.find(op, f_p) != -1:
             op_i = exp.find(op, f_p)
+            #excluding minus signs of negative numbers
             if (op == '-' and is_neg_num(exp, op_i)):
                 f_p = op_i + 1
                 continue
             found_oprtrs[op_i] = op
             f_p = op_i + 1
         f_p = 0
-    #sorting dict of operators by keys(index)
+    #sorting dict of operators by keys(indexes)
     oprtrs_sorted = {k:v for k,v in sorted(found_oprtrs.items())}
     return oprtrs_sorted
 
@@ -151,11 +128,12 @@ def find_oprnds(exp, op_i, oprtrs):
                 
         case 'nrt':
             #arguments of nth root must be in brackets 
-            #the offset stands for len(nthrt)
+            #the offset stands for len(nrt)
             if exp[op_i + 3] != '(':
                 return False
             else:
-                end_br = find_comp_br(exp, op_i + 3, False)
+                end_br = find_comp_br(exp, op_i + 3)
+                #params parsing
                 params = exp[op_i + 4:end_br] 
                 ops = params.split(',')
                 oprnds['l_op'] = ops[0]
@@ -163,11 +141,12 @@ def find_oprnds(exp, op_i, oprtrs):
 
         case 'log':
             #arguments of logarithm must be in brackets 
-            #the offset is stands for len(log)
+            #the offset stands for len(log)
             if exp[op_i + 3] != '(':
                 return False
             else:
-                end_br = find_comp_br(exp, op_i + 3, False)
+                end_br = find_comp_br(exp, op_i + 3)
+                #params parsing
                 params = exp[op_i + 4:end_br] 
                 ops = params.split(',')
                 oprnds['l_op'] = ops[0]
@@ -193,6 +172,7 @@ def find_oprnds(exp, op_i, oprtrs):
     return oprnds
 
 
+
 """
 CHECK EMPTY OPERANDS
 brief: Checks, if operands are not empty strings
@@ -212,7 +192,7 @@ return: list[{i: oprtr, l_op: l_oprnd, r_op: r_oprnd} pr: n}] / False if err
 """
 def parse_exp(exp):
     if not bracket_pair_check(exp):
-        print("Incorrect brackets use")
+        print('Incorrect use of brackets')
         return False
     oprtrs = find_oprtrs(exp)
     #dict of operation - operator, operands and priority of calculation
@@ -220,12 +200,14 @@ def parse_exp(exp):
     #list of dict{operation}
     ops_list = []
     for oprtr in oprtrs:
+        print(ops_list)
         op_dict[oprtr] = oprtrs[oprtr] 
         op_dict.update(find_oprnds(exp, oprtr, oprtrs))
         op_dict['pr'] = oprtrs_pr[oprtrs[oprtr]]
-        #muze byt soucasti vetsi validace
+        
         if not check_empty_oprnds(op_dict):
             return False
+
         ops_list.append(op_dict)
         op_dict = {}
     return ops_list
