@@ -1,7 +1,10 @@
-from . import math_funcs
-from .exp_parse import parse_exp
-from .exp_parse import oprtrs_set
+#from . import math_funcs
+#from .exp_parse import parse_exp
+#from .exp_parse import oprtrs_set
 from math import pi
+import math_funcs
+from exp_parse import parse_exp
+from exp_parse import oprtrs_set
 
 
 """
@@ -99,6 +102,7 @@ return: str up_exp
 """
 def update_exp(exp, op, res):
     cur_oprtr = op[list(op)[0]]
+    #case of operations with left and right operands
     if cur_oprtr in '+-/*^':
         cur_op_str = f"{op['l_op']}{cur_oprtr}{op['r_op']}"
 
@@ -107,6 +111,7 @@ def update_exp(exp, op, res):
 
     if cur_oprtr == 'nrt' or cur_oprtr == 'log':
         cur_op_str = f"{cur_oprtr}({op['l_op']},{op['r_op']})"
+
     up_exp = exp.replace(cur_op_str, str(res))
     return up_exp
 
@@ -144,11 +149,13 @@ def calc_output(exp):
         exp = exp.replace('PI', str(pi))
 
     ops = parse_exp(exp)
+    #checking if there is an error in initial parsing
     if ops is False:
         return False
 
     res = exp
     while len(ops) != 0:
+        #for safety reasons, but probably redundant :)
         if ops is False:
             return False
 
@@ -159,6 +166,7 @@ def calc_output(exp):
         l_op = cur_op[list(cur_op)[1]]
         r_op = cur_op[list(cur_op)[2]]
 
+        #removing brackets from negative operands
         if is_neg_oprnd(l_op):
             l_op = cln_neg_oprnd(l_op)
 
@@ -167,6 +175,7 @@ def calc_output(exp):
             r_op = cln_neg_oprnd(r_op)
 
 
+        #converting strings to numbers
         if '.' in l_op:
             l_op = str_to_float(l_op)
         else:
@@ -179,6 +188,7 @@ def calc_output(exp):
             else:
                 r_op = str_to_int(r_op)
 
+        #checking for conversion errors
         if l_op is False or r_op is False:
             return False
 
@@ -207,6 +217,7 @@ def calc_output(exp):
             case 'log':
                 res = math_funcs.logx(l_op, r_op)
 
+        #checking for calculation errors
         if res is False:
             return False
 
