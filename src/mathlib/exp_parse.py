@@ -1,6 +1,3 @@
-from cmath import exp
-
-
 #Set with all operators
 oprtrs_set = {'+', '-', '*', '/', '^', '!', 'nrt', 'log'}
 
@@ -17,7 +14,6 @@ oprtrs_pr = {
 }
 
 
-#TODO: works for now, but primitive
 """
 IS A NEGATIVE NUMBER
 brief: Checking if '-' stands for negative number or an operator
@@ -193,6 +189,7 @@ def find_oprnds(exp, op_i, oprtrs):
     return oprnds
 
 
+
 """
 CHECK EMPTY OPERANDS
 brief: Checks, if operands are not empty strings
@@ -212,7 +209,7 @@ return: list[{i: oprtr, l_op: l_oprnd, r_op: r_oprnd} pr: n}] / False if err
 """
 def parse_exp(exp):
     if not bracket_pair_check(exp):
-        print("Incorrect brackets use")
+        print('Incorrect brackets use')
         return False
     oprtrs = find_oprtrs(exp)
     #dict of operation - operator, operands and priority of calculation
@@ -223,9 +220,10 @@ def parse_exp(exp):
         op_dict[oprtr] = oprtrs[oprtr] 
         op_dict.update(find_oprnds(exp, oprtr, oprtrs))
         op_dict['pr'] = oprtrs_pr[oprtrs[oprtr]]
-        #muze byt soucasti vetsi validace
+        
         if not check_empty_oprnds(op_dict):
             return False
+
         ops_list.append(op_dict)
         op_dict = {}
     return ops_list
