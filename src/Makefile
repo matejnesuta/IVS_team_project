@@ -51,6 +51,7 @@ $(VENV)/bin/activate: requirements.txt
 clean:
 	rm -rf $(VENV)
 	rm -f *.prof
-	rm -rf calculator/mathlib/__pycache__
+	rm -rf mathlib/__pycache__
 	rm -rf __pycache__
 	rm -rf *.log
+	rm -rf .pytest_cache
