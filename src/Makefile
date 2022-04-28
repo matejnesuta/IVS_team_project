@@ -18,10 +18,10 @@ test: $(VENV)/bin/activate
 
 doc: $(DOXYFILE)
 	doxygen $(DOXYFILE)	
-	cd ../documentation/latex/ ; make -i pdf
+	cd ../latex/ ; make -i pdf
 	
-	mv ../documentation/latex/refman.pdf ../documentation/dokumentace.pdf 
-	rm -rf ../documentation/latex
+	mv ../latex/refman.pdf ../dokumentace.pdf 
+	rm -rf ../latex
 
 profile: $(VENV)/bin/activate
 	$(PYTHON) $(PROFILER) < $(DATA)
