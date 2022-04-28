@@ -277,16 +277,16 @@ class Ui_MainWindow(object):
         self.push_plus.setObjectName("push_plus")
         self.gridLayout.addWidget(self.push_plus, 4, 3, 1, 1)
 
-        self.push_pi = QtWidgets.QPushButton(self.centralwidget)
+        self.push_logarithm = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(10)
-        sizePolicy.setHeightForWidth(self.push_pi.sizePolicy().hasHeightForWidth())
-        self.push_pi.setSizePolicy(sizePolicy)
-        self.push_pi.setAutoFillBackground(False)
-        self.push_pi.setStyleSheet("background-color: rgb(119, 118, 123);")
-        self.push_pi.setObjectName("push_pi")
-        self.gridLayout.addWidget(self.push_pi, 4, 4, 1, 1)
+        sizePolicy.setHeightForWidth(self.push_logarithm.sizePolicy().hasHeightForWidth())
+        self.push_logarithm.setSizePolicy(sizePolicy)
+        self.push_logarithm.setAutoFillBackground(False)
+        self.push_logarithm.setStyleSheet("background-color: rgb(119, 118, 123);")
+        self.push_logarithm.setObjectName("push_logarithm")
+        self.gridLayout.addWidget(self.push_logarithm, 4, 4, 1, 1)
 
         self.push_n0 = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Preferred)
@@ -310,16 +310,16 @@ class Ui_MainWindow(object):
         self.push_comma.setObjectName("push_comma")
         self.gridLayout.addWidget(self.push_comma, 5, 1, 1, 1)
         
-        self.push_logarithm = QtWidgets.QPushButton(self.centralwidget)
+        self.push_dot = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(10)
-        sizePolicy.setHeightForWidth(self.push_logarithm.sizePolicy().hasHeightForWidth())
-        self.push_logarithm.setSizePolicy(sizePolicy)
-        self.push_logarithm.setAutoFillBackground(False)
-        self.push_logarithm.setStyleSheet("")
-        self.push_logarithm.setObjectName("push_logarithm")
-        self.gridLayout.addWidget(self.push_logarithm, 5, 2, 1, 1)
+        sizePolicy.setHeightForWidth(self.push_dot.sizePolicy().hasHeightForWidth())
+        self.push_dot.setSizePolicy(sizePolicy)
+        self.push_dot.setAutoFillBackground(False)
+        self.push_dot.setStyleSheet("")
+        self.push_dot.setObjectName("push_dot")
+        self.gridLayout.addWidget(self.push_dot, 5, 2, 1, 1)
         
         self.push_minus = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Preferred)
@@ -371,7 +371,7 @@ class Ui_MainWindow(object):
         self.push_nthrt.clicked.connect(lambda:self.displayWrite("nrt("))
         self.push_pow.clicked.connect(lambda:self.displayWrite("^"))
         self.push_factorial.clicked.connect(lambda:self.displayWrite("!"))
-        self.push_pi.clicked.connect(lambda:self.displayWrite("PI"))
+        self.push_dot.clicked.connect(lambda:self.displayWrite("."))
 
         self.push_eq.clicked.connect(self.evaluate)
         self.push_backspace.clicked.connect(self.displayDeleteLast)
@@ -398,8 +398,6 @@ class Ui_MainWindow(object):
 
             if text[-1] == 'g':
                 self.label.setText(text[:-3])
-            elif text[-1] == 'I':
-                self.label.setText(text[:-2])
             elif(len(text) > 1):
                 if text[-2] == '^':
                     self.label.setText(text[:-2])
@@ -454,7 +452,7 @@ class Ui_MainWindow(object):
         self.push_n2.setText(_translate("MainWindow", "2"))
         self.push_n3.setText(_translate("MainWindow", "3"))
         self.push_plus.setText(_translate("MainWindow", "+"))
-        self.push_pi.setText(_translate("MainWindow", "π"))
+        self.push_dot.setText(_translate("MainWindow", "."))
         self.push_n0.setText(_translate("MainWindow", "0"))
         self.push_comma.setText(_translate("MainWindow", ","))
         self.push_logarithm.setText(_translate("MainWindow", "LOG"))
