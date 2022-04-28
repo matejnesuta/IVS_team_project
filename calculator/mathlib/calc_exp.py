@@ -1,5 +1,6 @@
-from . import math_funcs
-from .exp_parse import parse_exp
+import math_funcs
+from exp_parse import parse_exp
+from exp_parse import oprtrs_set
 
 
 """
@@ -56,6 +57,27 @@ def to_neg_oprnd(oprnd):
     return f"({oprnd})"
 
 
+"""
+NEGATIVE FIRST OPERAND
+brief: Putting first operand into brackets, if it's negative
+param: str exp, set{oprtrs}
+return: str exp
+"""
+def neg_first_oprnd(exp, oprtr_set):
+    cut_sign = exp[1:]
+    ops = {}
+    for op in oprtr_set:
+        if cut_sign.find(op) > -1:
+            ops[op] = cut_sign.find(op)
+    if len(ops) == 0:
+        return f"(-1)*{cut_sign}"
+
+    next_op = min(ops.values()) + 1
+    neg_start = exp[:next_op]
+    cut_exp = exp[next_op:]
+    return f"({neg_start}){cut_exp}"
+
+
 #TODO: uhlednejsi reseni 
 """
 UPDATE EXPRESSION
@@ -73,18 +95,19 @@ def update_exp(exp, op, res):
 
     if cur_oprtr == 'nrt' or cur_oprtr == 'log':
         cur_op_str = f"{cur_oprtr}({op['l_op']},{op['r_op']})"
-
     up_exp = exp.replace(cur_op_str, str(res))
     return up_exp
 
 
 """
 CALCULATION OUTPUT
-brief: 
+brief: Calculates the expression 
 param: list[ops]
-return: float output
+return: float res / False if err
 """
 def calc_output(exp):
+    if exp[0] == '-':
+        exp = neg_first_oprnd(exp, oprtrs_set)
     ops = parse_exp(exp)
     res = exp
     while len(ops) != 0:
@@ -146,6 +169,3 @@ def calc_output(exp):
         ops = parse_exp(exp)
         
     return res
-
-e ='-221172.66666663/1455'
-print(calc_output(e))

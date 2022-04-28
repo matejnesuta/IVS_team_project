@@ -30,44 +30,6 @@ def is_neg_num(exp, sign_i):
 
 
 """
-NEGATIVE FIRST OPERAND
-brief: Putting first operand into brackets, if it's negative
-param: str exp, set{oprtrs}
-return: str exp
-"""
-def neg_first_oprnd(exp, oprtr_set):
-    cut_sign = exp[1:]
-    ops = {}
-    for op in oprtr_set:
-        if cut_sign.find(op) > -1:
-            ops[op] = cut_sign.find(op)
-    next_op = min(ops.values()) + 1
-    neg_start = exp[:next_op]
-    cut_exp = exp[next_op:]
-    return f"({neg_start}){cut_exp}"
-
-
-"""
-CHECKING PAIRS OF BRACKETS
-brief: Checking if there is always a complementary bracket
-param: str exp
-return: True / False
-"""
-def bracket_pair_check(exp):
-    n_left_br = 0
-    n_right_br = 0
-    for c in exp:
-        if c == '(':
-            n_left_br += 1
-        if c == ')':
-            n_right_br += 1
-        if n_right_br > n_left_br:
-            return False
-    return True if n_left_br == n_right_br else False
-
-
-#FIXME: return -1, if not found
-"""
 FIND COMPLEMENTARY BRACKET
 brief: Based on the index of the bracket finds its complementary bracket
 param: str exp, int first_i, bool rev
@@ -97,7 +59,7 @@ def find_comp_br(exp, br_i, rev):
                 n_right_br += 1
             if n_left_br == n_right_br:
                 return i
-
+    return -1
 
 """
 FIND NEXT OPERATOR
@@ -223,13 +185,10 @@ def vld_empty_oprnds():
 EXPRESSION PARSER
 brief: Parsing the whole expression and dividing it to the seperate operations
 param: str exp, dict {oprtrs}
-return: dict{} of elementary operations and their order of execution
-list[{i: oprtr, l_op: l_oprnd, r_op: r_oprnd} pr: n}]
+return: list[{i: oprtr, l_op: l_oprnd, r_op: r_oprnd} pr: n}] / False if err
+
 """
 def parse_exp(exp):
-    if exp[0] == '-':
-        exp = neg_first_oprnd(exp, oprtrs_set)
-
     oprtrs = find_oprtrs(exp)
     #dict of operation - operator, operands and priority of calculation
     op_dict = {}
@@ -243,7 +202,26 @@ def parse_exp(exp):
         op_dict = {}
     return ops_list
 
-e = '-8*25'
+e = '(-8*25+(-9))'
+
+"""
+CHECKING PAIRS OF BRACKETS
+brief: Checking if there is always a complementary bracket
+param: str exp
+return: True / False
+"""
+def bracket_pair_check(exp):
+    n_left_br = 0
+    n_right_br = 0
+    for c in exp:
+        if c == '(':
+            n_left_br += 1
+        if c == ')':
+            n_right_br += 1
+        if n_right_br > n_left_br:
+            return False
+    return True if n_left_br == n_right_br else False
 
 
-print(parse_exp(e))
+#print(bracket_pair_check(e))
+#print(parse_exp(e))
