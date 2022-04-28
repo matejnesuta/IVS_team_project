@@ -1,10 +1,9 @@
-from . import math_funcs
-from .exp_parse import parse_exp
-from .exp_parse import oprtrs_set
-from math import pi
-# import math_funcs
-# from exp_parse import parse_exp
-# from exp_parse import oprtrs_set
+#from . import math_funcs
+#from .exp_parse import parse_exp
+#from .exp_parse import oprtrs_set
+import math_funcs
+from exp_parse import parse_exp
+from exp_parse import oprtrs_set
 
 
 """
@@ -35,6 +34,7 @@ def str_to_float(s):
         print('Argument is not a number')
         return False
     return res
+
 
 """
 IS NEGATIVE OPERAND
@@ -124,8 +124,10 @@ return str f_out
 """
 def format_output(out):
     #converts .0 float to int
-    if type(out) is float and int(out) == out:
-        return int(out)
+    if type(out) is float:
+        out = round(out, 7)
+        if int(out) == out:
+            return int(out)
 
     #removes brackets in case, when the expression is a sole negative number
     if is_neg_oprnd(str(out)):
@@ -143,10 +145,6 @@ def calc_output(exp):
     #handling minus sign at the beginning of the expression
     if exp[0] == '-':
         exp = neg_first_oprnd(exp, oprtrs_set)
-
-    #converting PI keyword to the constant
-    if exp.find('PI') != -1:
-        exp = exp.replace('PI', str(pi))
 
     ops = parse_exp(exp)
     #checking if there is an error in initial parsing
