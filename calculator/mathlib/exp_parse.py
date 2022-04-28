@@ -211,6 +211,9 @@ return: list[{i: oprtr, l_op: l_oprnd, r_op: r_oprnd} pr: n}] / False if err
 
 """
 def parse_exp(exp):
+    if not bracket_pair_check(exp):
+        print("Incorrect brackets use")
+        return False
     oprtrs = find_oprtrs(exp)
     #dict of operation - operator, operands and priority of calculation
     op_dict = {}
@@ -221,7 +224,8 @@ def parse_exp(exp):
         op_dict.update(find_oprnds(exp, oprtr, oprtrs))
         op_dict['pr'] = oprtrs_pr[oprtrs[oprtr]]
         #muze byt soucasti vetsi validace
-        print(check_empty_oprnds(op_dict))
+        if not check_empty_oprnds(op_dict):
+            return False
         ops_list.append(op_dict)
         op_dict = {}
     return ops_list

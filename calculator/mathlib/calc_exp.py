@@ -69,16 +69,18 @@ def neg_first_oprnd(exp, oprtr_set):
     for op in oprtr_set:
         if cut_sign.find(op) > -1:
             ops[op] = cut_sign.find(op)
+    #case of sole negative number, eg. -2
     if len(ops) == 0:
-        return f"(-1)*{cut_sign}"
-
+        return f"({exp})"
+    
     next_op = min(ops.values()) + 1
+    if next_op == 1:
+        return f"(-1)*{cut_sign}"
     neg_start = exp[:next_op]
     cut_exp = exp[next_op:]
     return f"({neg_start}){cut_exp}"
 
 
-#TODO: uhlednejsi reseni 
 """
 UPDATE EXPRESSION
 brief: Replaces operataion with its result
@@ -100,6 +102,19 @@ def update_exp(exp, op, res):
 
 
 """
+FORMAT OUTPUT
+brief: Formating output - for instance, converting .0 float to int
+param: str out
+return str f_out
+"""
+def format_output(out):
+    if type(out) is float:
+        if int(out) == out:
+            return int(out)
+    return out
+
+
+"""
 CALCULATION OUTPUT
 brief: Calculates the expression 
 param: list[ops]
@@ -109,8 +124,12 @@ def calc_output(exp):
     if exp[0] == '-':
         exp = neg_first_oprnd(exp, oprtrs_set)
     ops = parse_exp(exp)
+    if ops is False:
+        return False
     res = exp
     while len(ops) != 0:
+        if ops is False:
+            return False
         #sorting the list of operations by priority
         ops_pr_sorted = sorted(ops, reverse=True, key=lambda op: op['pr'])
         cur_op = ops_pr_sorted[0]
@@ -125,8 +144,7 @@ def calc_output(exp):
         if r_op != None and is_neg_oprnd(r_op):
             r_op = cln_neg_oprnd(r_op)
 
-        #maybe seperate func?
-        #TODO:validation
+
         if '.' in l_op:
             l_op = str_to_float(l_op)
         else:
@@ -138,6 +156,9 @@ def calc_output(exp):
                 r_op = str_to_float(r_op)
             else:
                 r_op = str_to_int(r_op)
+
+        if l_op is False or r_op is False:
+            return False
 
         match cur_oprtr:
             case '+':
@@ -163,9 +184,14 @@ def calc_output(exp):
                 
             case 'log':
                 res = math_funcs.logx(l_op, r_op)
-        #TODO: format result
+        if res is False:
+            return False
+        #TODO: .0 float to int, clean negative number, etc.
         res_to_exp = f"({res})" if res < 0 else res
         exp = update_exp(exp, cur_op, res_to_exp)
         ops = parse_exp(exp)
-        
+    res = format_output(res)  
     return res
+
+e ='-3/(-1)'
+print(calc_output(e))
