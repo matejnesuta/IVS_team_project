@@ -5,9 +5,10 @@ APP = calculator.py
 PROFILER = profiling.py
 DATA = data.txt
 .DEFAULT_GOAL = all
+DOXYFILE = Doxyfile
+LATEX_CMD=pdflatex
 
-all:
-	@echo "all"
+all: $(VENV)/bin/activate
 
 pack:
 	@echo "pack"
@@ -15,13 +16,14 @@ pack:
 test: $(VENV)/bin/activate
 	$(PYTHON) -m pytest
 
-doc:
-	@echo "doc"
+doc: $(DOXYFILE)
+	doxygen $(DOXYFILE)	
+	cd ../documentation/latex/ ; make -i pdf
+	
+	mv ../documentation/latex/refman.pdf ../documentation/dokumentace.pdf 
+	rm -rf ../documentation/latex
 
-dot:
-#apt install dot
-
-profile: $(VENV)/bin/activate dot
+profile: $(VENV)/bin/activate
 	$(PYTHON) $(PROFILER) < $(DATA)
 	$(PYTHON) $(VENV)/lib/python3.10/site-packages/gprof2dot.py -f pstats profiling_calc.prof | dot -Tpng -o output.png
 	mv output.png ../profiling/vystup.png
