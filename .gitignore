@@ -1,0 +1,6 @@
+/src/env/
+/src/mockup.ui
+*.prof
+/src/mathlib/__pycache__
+/src/data.txt
+/src/__pycache__
