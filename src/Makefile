@@ -53,3 +53,4 @@ clean:
 	rm -f *.prof
 	rm -rf calculator/mathlib/__pycache__
 	rm -rf __pycache__
+	rm -rf *.log
