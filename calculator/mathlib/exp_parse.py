@@ -1,8 +1,7 @@
-#Set with all operators
 from cmath import exp
-from operator import neg
 
 
+#Set with all operators
 oprtrs_set = {'+', '-', '*', '/', '^', '!', 'nrt', 'log'}
 
 #Operators priority
@@ -27,6 +26,29 @@ return: True / False
 """
 def is_neg_num(exp, sign_i):
     return True if exp[sign_i - 1] == '(' else False
+
+
+"""
+CHECKING BRACKET PAIRS 
+brief: Checks bracket pair integrity
+param: str exp
+return: True / False
+"""
+def bracket_pair_check(exp):
+    n_left_br = 0
+    n_right_br = 0
+    for c in exp:
+        if c == '(':
+            if n_left_br != n_right_br:
+                return False
+            else:
+                n_left_br += 1
+        if c == ')':
+            if n_left_br <= n_right_br:
+                return False
+            else:
+                n_right_br += 1
+    return True if n_left_br == n_right_br else False
 
 
 """
@@ -172,13 +194,13 @@ def find_oprnds(exp, op_i, oprtrs):
 
 
 """
-VALIDATE EMPTY OPERANDS
-brief: 
-param: str oprtr, list [oprnds]
-return: True / False
+CHECK EMPTY OPERANDS
+brief: Checks, if operands are not empty strings
+param: dict{op}
+return: True if not empty / False
 """
-def vld_empty_oprnds():
-    return
+def check_empty_oprnds(op):
+    return True if op['l_op'] != '' and op['r_op'] != '' else False
 
 
 """
@@ -198,30 +220,8 @@ def parse_exp(exp):
         op_dict[oprtr] = oprtrs[oprtr] 
         op_dict.update(find_oprnds(exp, oprtr, oprtrs))
         op_dict['pr'] = oprtrs_pr[oprtrs[oprtr]]
+        #muze byt soucasti vetsi validace
+        print(check_empty_oprnds(op_dict))
         ops_list.append(op_dict)
         op_dict = {}
     return ops_list
-
-e = '(-8*25+(-9))'
-
-"""
-CHECKING PAIRS OF BRACKETS
-brief: Checking if there is always a complementary bracket
-param: str exp
-return: True / False
-"""
-def bracket_pair_check(exp):
-    n_left_br = 0
-    n_right_br = 0
-    for c in exp:
-        if c == '(':
-            n_left_br += 1
-        if c == ')':
-            n_right_br += 1
-        if n_right_br > n_left_br:
-            return False
-    return True if n_left_br == n_right_br else False
-
-
-#print(bracket_pair_check(e))
-#print(parse_exp(e))
