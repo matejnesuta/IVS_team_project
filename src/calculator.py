@@ -11,6 +11,9 @@ from PyQt6.QtCore import Qt
 from mathlib.calc_exp import calc_output
 
 class Ui_MainWindow(object):
+
+    error = False
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
@@ -375,6 +378,9 @@ class Ui_MainWindow(object):
         self.push_clearall.clicked.connect(self.displayClear)
 
     def displayWrite(self, input):
+        if (self.error == True):
+            self.error = False
+            self.label.setText("")
         text=self.label.text()
         self.label.setText(text+input)
 
@@ -383,8 +389,13 @@ class Ui_MainWindow(object):
 
     def displayDeleteLast(self):
         text=self.label.text()
-        if text != "":
-            
+
+        if (self.error == True):
+            self.error = False
+            self.label.setText("")
+
+        elif text != "":
+
             if text[-1] == 'g':
                 self.label.setText(text[:-3])
             elif text[-1] == 'I':
@@ -400,7 +411,12 @@ class Ui_MainWindow(object):
                 self.label.setText(text[:-1])
 
     def evaluate(self):
-        self.label.setText(str(calc_output(self.label.text())))
+        retValue = str(calc_output(self.label.text()))
+        if retValue == "False":
+            self.label.setText("Špatně zadaný výraz!")
+            self.error = True
+        else:
+            self.label.setText(retValue)
 
     def keyPressEvent(self, e):
         if e.key() >=48 and e.key()<=57:
