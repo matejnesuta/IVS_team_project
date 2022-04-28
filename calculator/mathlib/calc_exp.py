@@ -1,6 +1,6 @@
-import math_funcs
-from exp_parse import parse_exp
-from exp_parse import oprtrs_set
+from . import math_funcs
+from .exp_parse import parse_exp
+from .exp_parse import oprtrs_set
 
 
 """
