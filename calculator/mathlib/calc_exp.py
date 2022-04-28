@@ -1,5 +1,5 @@
-import math_funcs
-from exp_parse import parse_exp
+from . import math_funcs
+from .exp_parse import parse_exp
 
 
 """
