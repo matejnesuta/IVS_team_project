@@ -1,0 +1,6 @@
+Package: calculator
+Version: 1.0
+Maintainer: IVS trickery
+Architecture: all
+Description: Calculator for the IVS team project
+Depends: python3-pip
