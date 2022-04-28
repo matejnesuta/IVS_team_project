@@ -1,4 +1,8 @@
 #Set with all operators
+from cmath import exp
+from operator import neg
+
+
 oprtrs_set = {'+', '-', '*', '/', '^', '!', 'nrt', 'log'}
 
 #Operators priority
@@ -23,6 +27,24 @@ return: True / False
 """
 def is_neg_num(exp, sign_i):
     return True if exp[sign_i - 1] == '(' else False
+
+
+"""
+NEGATIVE FIRST OPERAND
+brief: Putting first operand into brackets, if it's negative
+param: str exp, set{oprtrs}
+return: str exp
+"""
+def neg_first_oprnd(exp, oprtr_set):
+    cut_sign = exp[1:]
+    ops = {}
+    for op in oprtr_set:
+        if cut_sign.find(op) > -1:
+            ops[op] = cut_sign.find(op)
+    next_op = min(ops.values()) + 1
+    neg_start = exp[:next_op]
+    cut_exp = exp[next_op:]
+    return f"({neg_start}){cut_exp}"
 
 
 """
@@ -111,7 +133,7 @@ def find_oprtrs(exp):
     for op in oprtrs_set:
         while exp.find(op, f_p) != -1:
             op_i = exp.find(op, f_p)
-            if op == '-' and is_neg_num(exp, op_i):
+            if (op == '-' and is_neg_num(exp, op_i)):
                 f_p = op_i + 1
                 continue
             found_oprtrs[op_i] = op
@@ -188,12 +210,12 @@ def find_oprnds(exp, op_i, oprtrs):
 
 
 """
-VALIDATE OPERANDS
+VALIDATE EMPTY OPERANDS
 brief: 
 param: str oprtr, list [oprnds]
 return: True / False
 """
-def vld_oprnds():
+def vld_empty_oprnds():
     return
 
 
@@ -205,6 +227,9 @@ return: dict{} of elementary operations and their order of execution
 list[{i: oprtr, l_op: l_oprnd, r_op: r_oprnd} pr: n}]
 """
 def parse_exp(exp):
+    if exp[0] == '-':
+        exp = neg_first_oprnd(exp, oprtrs_set)
+
     oprtrs = find_oprtrs(exp)
     #dict of operation - operator, operands and priority of calculation
     op_dict = {}
@@ -217,3 +242,8 @@ def parse_exp(exp):
         ops_list.append(op_dict)
         op_dict = {}
     return ops_list
+
+e = '-8*25'
+
+
+print(parse_exp(e))

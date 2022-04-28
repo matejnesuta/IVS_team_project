@@ -31,6 +31,7 @@ def str_to_float(s):
         return False
     return res
 
+#comm
 def is_neg_oprnd(oprnd):
     return True if oprnd[0] == '(' else False
 
@@ -45,6 +46,12 @@ def cln_neg_oprnd(oprnd):
     return oprnd[1:len(oprnd) - 1]
 
 
+"""
+TO NEGATIVE OPERAND
+brief: Adds brackets to negative operand
+param: str oprnd
+return str neg_oprnd
+"""
 def to_neg_oprnd(oprnd):
     return f"({oprnd})"
 
@@ -79,9 +86,8 @@ return: float output
 """
 def calc_output(exp):
     ops = parse_exp(exp)
-    n_ops = len(ops)
     res = exp
-    for i in range(n_ops):
+    while len(ops) != 0:
         #sorting the list of operations by priority
         ops_pr_sorted = sorted(ops, reverse=True, key=lambda op: op['pr'])
         cur_op = ops_pr_sorted[0]
@@ -140,3 +146,6 @@ def calc_output(exp):
         ops = parse_exp(exp)
         
     return res
+
+e ='-221172.66666663/1455'
+print(calc_output(e))
