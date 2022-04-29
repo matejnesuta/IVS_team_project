@@ -6,22 +6,37 @@ PROFILER = profiling.py
 DATA = data.txt
 .DEFAULT_GOAL = all
 DOXYFILE = Doxyfile
-LATEX_CMD=pdflatex
+LATEX_CMD = pdflatex
+XLOGINS = xnesut00_xpenko00_xdzida01_xmarke00
+
+ .PHONY: all pack packfolder test doc profile help run clean
 
 all: $(VENV)/bin/activate
 
-pack:
-	@echo "pack"
+pack: clean doc packfolder ../../$(XLOGINS).zip
+
+../../$(XLOGINS).zip:
+	rm -rf ../installer
+	rm -rf ../doc	
+	cd ../.. && zip -r $@ $(XLOGINS) 
+	
+packfolder:
+	mkdir -p ../../$(XLOGINS)/repo
+	mkdir -p ../../$(XLOGINS)/installer
+	mkdir -p ../../$(XLOGINS)/doc
+	cp -af ../../repo/. ../../$(XLOGINS)/repo/
+	cp -af ../doc/. ../../$(XLOGINS)/doc/
+	cp -af ../installer/. ../../$(XLOGINS)/installer/
 
 test: $(VENV)/bin/activate
 	$(PYTHON) -m pytest
 
 doc: $(DOXYFILE)
 	doxygen $(DOXYFILE)	
-	cd ../latex/ ; make -i pdf
+	cd ../doc/latex/ ; make -i pdf
 	
-	mv ../latex/refman.pdf ../dokumentace.pdf 
-	rm -rf ../latex
+	mv ../doc/latex/refman.pdf ../doc/dokumentace.pdf 
+	rm -rf ../doc/latex
 
 profile: $(VENV)/bin/activate
 	$(PYTHON) $(PROFILER) < $(DATA)
