@@ -120,61 +120,60 @@ return: dict{l_op: l_oprnd, r_op: r_oprnd}
 def find_oprnds(exp, op_i, oprtrs):
     op = oprtrs[op_i]
     oprnds = {}
-    match op:
-        case '!':
-            n_op = find_next_oprtr(oprtrs, op_i, True)
-            if n_op == -1:
-                l_oprnd = exp[:op_i]
-                oprnds['l_op'] = l_oprnd
-                oprnds['r_op'] = None
-            else:
-                l_oprnd = exp[n_op + 1:op_i]
-                oprnds['l_op'] = l_oprnd
-                oprnds['r_op'] = None
-                
-        case 'nrt':
-            #arguments of nth root must be in brackets 
-            #the offset stands for len(nrt)
-            if exp[op_i + 3] != '(':
-                return False
-            else:
-                end_br = find_comp_br(exp, op_i + 3)
-                #params parsing
-                params = exp[op_i + 4:end_br] 
-                ops = params.split(',')
-                oprnds['l_op'] = ops[0]
-                oprnds['r_op'] = ops[1]
+    if op == '!':
+        n_op = find_next_oprtr(oprtrs, op_i, True)
+        if n_op == -1:
+            l_oprnd = exp[:op_i]
+            oprnds['l_op'] = l_oprnd
+            oprnds['r_op'] = None
+        else:
+            l_oprnd = exp[n_op + 1:op_i]
+            oprnds['l_op'] = l_oprnd
+            oprnds['r_op'] = None
 
-        case 'log':
-            #arguments of logarithm must be in brackets 
-            #the offset stands for len(log)
-            if exp[op_i + 3] != '(':
-                return False
-            else:
-                end_br = find_comp_br(exp, op_i + 3)
-                #params parsing
-                params = exp[op_i + 4:end_br] 
-                ops = params.split(',')
-                oprnds['l_op'] = ops[0]
-                oprnds['r_op'] = ops[1]
+    if op == 'nrt':
+        #arguments of nth root must be in brackets 
+        #the offset stands for len(nrt)
+        if exp[op_i + 3] != '(':
+            return False
+        else:
+            end_br = find_comp_br(exp, op_i + 3)
+            #params parsing
+            params = exp[op_i + 4:end_br] 
+            ops = params.split(',')
+            oprnds['l_op'] = ops[0]
+            oprnds['r_op'] = ops[1]
 
-        case _:
-            l_oprtr = find_next_oprtr(oprtrs, op_i, True) 
-            r_oprtr = find_next_oprtr(oprtrs, op_i, False) 
+    if op == 'log':
+        #arguments of logarithm must be in brackets 
+        #the offset stands for len(log)
+        if exp[op_i + 3] != '(':
+            return False
+        else:
+            end_br = find_comp_br(exp, op_i + 3)
+            #params parsing
+            params = exp[op_i + 4:end_br] 
+            ops = params.split(',')
+            oprnds['l_op'] = ops[0]
+            oprnds['r_op'] = ops[1]
 
-            if l_oprtr == -1:
-                l_oprnd = exp[:op_i]
-                oprnds['l_op'] = l_oprnd
-            else:
-                l_oprnd = exp[l_oprtr + 1:op_i]
-                oprnds['l_op'] = l_oprnd
+    if op in '+-/*^':
+        l_oprtr = find_next_oprtr(oprtrs, op_i, True) 
+        r_oprtr = find_next_oprtr(oprtrs, op_i, False) 
 
-            if r_oprtr == -1:
-                r_oprnd = exp[op_i + 1:]
-                oprnds['r_op'] = r_oprnd
-            else:
-                r_oprnd = exp[op_i + 1:r_oprtr]
-                oprnds['r_op'] = r_oprnd
+        if l_oprtr == -1:
+            l_oprnd = exp[:op_i]
+            oprnds['l_op'] = l_oprnd
+        else:
+            l_oprnd = exp[l_oprtr + 1:op_i]
+            oprnds['l_op'] = l_oprnd
+
+        if r_oprtr == -1:
+            r_oprnd = exp[op_i + 1:]
+            oprnds['r_op'] = r_oprnd
+        else:
+            r_oprnd = exp[op_i + 1:r_oprtr]
+            oprnds['r_op'] = r_oprnd
 
     return oprnds
 

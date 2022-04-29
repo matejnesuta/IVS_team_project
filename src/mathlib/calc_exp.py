@@ -192,30 +192,29 @@ def calc_output(exp):
         if l_op is False or r_op is False:
             return False
 
-        match cur_oprtr:
-            case '+':
-                res = math_funcs.add(l_op, r_op) 
+        if cur_oprtr == '+':
+            res = math_funcs.add(l_op, r_op) 
 
-            case '-':
-                res = math_funcs.sub(l_op, r_op)
-                
-            case '*':
-                res = math_funcs.mul(l_op, r_op)
-                
-            case '/':
-                res = math_funcs.div(l_op, r_op)
-                
-            case '^':
-                res = math_funcs.pow_n(l_op, r_op)
-                
-            case '!':
-                res = math_funcs.factorial(l_op)
-                
-            case 'nrt':
-                res = math_funcs.nth_root(l_op, r_op)
-                
-            case 'log':
-                res = math_funcs.logx(l_op, r_op)
+        if cur_oprtr == '-':
+            res = math_funcs.sub(l_op, r_op) 
+
+        if cur_oprtr == '*':
+            res = math_funcs.mul(l_op, r_op) 
+
+        if cur_oprtr == '/':
+            res = math_funcs.div(l_op, r_op) 
+
+        if cur_oprtr == '^':
+            res = math_funcs.pow_n(l_op, r_op) 
+
+        if cur_oprtr == '!':
+            res = math_funcs.factorial(l_op) 
+
+        if cur_oprtr == 'nrt':
+            res = math_funcs.nth_root(l_op, r_op) 
+
+        if cur_oprtr == 'log':
+            res = math_funcs.logx(l_op, r_op) 
 
         #checking for calculation errors
         if res is False:
