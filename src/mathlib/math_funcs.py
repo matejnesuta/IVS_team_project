@@ -54,7 +54,7 @@ return: n!
 """
 def factorial(n):
     if n < 0 or type(n) is not int:
-        print("Arg is not >= 0")
+        print("Invalid parameter")
         return False
     res = 1
     for i in range(n):
@@ -82,8 +82,8 @@ param: float x, float n
 return: x^(1/n)
 """
 def nth_root(x, n):
-    if x < 0:
-        print("Must be a positive base")
+    if x < 0 and n % 2 == 0:
+        print("Invalid parameter")
         return False
     if n <= 0:
         print("Must be a positive exponent") 
@@ -100,7 +100,7 @@ return: float log(x, b)
 def logx(x, b):
     try:
         res = log(x, b)
-    except ValueError and ZeroDivisionError:
+    except ValueError or ZeroDivisionError:
         print("Invalid parameters")
         return False
     return res
