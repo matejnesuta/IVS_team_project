@@ -48,13 +48,13 @@ def div(x, y):
 
 """
 FACTORIAL
-brief: Factorial of n, n must be a non-negative number
-param: float n
+brief: Factorial of n, n must be a non-negative integer
+param: int n
 return: n!
 """
 def factorial(n):
-    if n < 0:
-        print("Param is not a positive number or zero")
+    if n < 0 or type(n) is not int:
+        print("Invalid parameter")
         return False
     res = 1
     for i in range(n):
@@ -69,7 +69,7 @@ param: float x, float n
 return: x^n
 """
 def pow_n(x, n):
-    if n < 0:
+    if n < 0 or type(n) is not int:
         print("Exponent is not a natural number")
         return False
     return x ** n
@@ -82,10 +82,10 @@ param: float x, float n
 return: x^(1/n)
 """
 def nth_root(x, n):
-    if x < 0:
-        print("Must be a positive number")
+    if x < 0 and n % 2 == 0:
+        print("Invalid parameter")
         return False
-    if n < 0:
+    if n <= 0:
         print("Must be a positive exponent") 
         return False
     return x ** (1 / n)
@@ -100,7 +100,7 @@ return: float log(x, b)
 def logx(x, b):
     try:
         res = log(x, b)
-    except ValueError:
+    except ValueError or ZeroDivisionError:
         print("Invalid parameters")
         return False
     return res
