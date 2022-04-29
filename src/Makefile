@@ -9,7 +9,7 @@ DOXYFILE = Doxyfile
 LATEX_CMD = pdflatex
 XLOGINS = xnesut00_xpenko00_xdzida01_xmarke00
 
-.PHONY all pack packfolder test doc profile help run clean
+ .PHONY: all pack packfolder test doc profile help run clean
 
 all: $(VENV)/bin/activate
 
