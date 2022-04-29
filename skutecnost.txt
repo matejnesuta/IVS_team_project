@@ -1,0 +1,6 @@
+Projekt rozhodně neprobíhal podle očekávání.
+Měli jsme špatně nastavené termíny, které byly v nesprávném pořadí.
+Nejtěžší část bylo vytvořit matematickou knihovnu a vytvořit správný instalátor, jelikož se na poslední chvíli zjistilo, že Python 3.10 nebyla nejlepší volba a museli jsme downgradnout o 2 verze.
+Komunikovalo se převážně přes Discord server a žádné obrovské problémy s komunikací nenastaly.
+Taktéž používání gitu dopadlo dost dobře a nemuseli jsme řešit žádné problémy zmíněné na přednášce.
+Ačkoliv projekt není zcela hotov a má své mouchy, myslíme, že si každý oddřel své a že náš tým spolupracoval dobře.

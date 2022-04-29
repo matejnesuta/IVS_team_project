@@ -1,4 +1,4 @@
-xpenko00 90 (Planning, Tests, User documentation, Repository)
+xpenko00 100 (Planning, Tests, User documentation, Repository)
 xnesut00 100 ( Interface, Makefile, Profiling)
 xdzida01 100 (Initialization, Implementation) 
 xmarke00 100 (Link interface, Un/installer, Program documentation) 
