@@ -65,7 +65,7 @@ def factorial(n):
 """
 POWER WITH n >= 0
 brief: Number x raised to the power of n
-param: float x, float n
+param: float x, int n
 return: x^n
 """
 def pow_n(x, n):
@@ -86,7 +86,7 @@ def nth_root(x, n):
         print("Invalid parameter")
         return False
     if n <= 0:
-        print("Must be a positive exponent") 
+        print("Negative exponent") 
         return False
     return x ** (1 / n)
 
@@ -100,7 +100,10 @@ return: float log(x, b)
 def logx(x, b):
     try:
         res = log(x, b)
-    except ValueError or ZeroDivisionError:
+    except ValueError:
+        print("Invalid parameters")
+        return False
+    except ZeroDivisionError:
         print("Invalid parameters")
         return False
     return res

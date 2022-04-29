@@ -70,6 +70,11 @@ def find_next_oprtr(oprtrs, op_i, rev):
     #checking for index out of range
     if (next_op_l_i == 0 and rev) or (next_op_l_i == len(op_i_list) - 1 and not rev):
         return -1
+
+    #edge case of nrt or log being next to some other operator
+    if not rev and (oprtrs[op_i_list[next_op_l_i + 1]] == 'log' or oprtrs[op_i_list[next_op_l_i + 1]] == 'nrt'):
+        return -1
+
     else:
         if rev:
             next_op_l_i -= 1
@@ -155,9 +160,8 @@ def find_oprnds(exp, op_i, oprtrs):
 
         case _:
             l_oprtr = find_next_oprtr(oprtrs, op_i, True) 
-            new_find_next_oprtr(oprtrs, op_i, True)
             r_oprtr = find_next_oprtr(oprtrs, op_i, False) 
-            new_find_next_oprtr(oprtrs, op_i, False)
+
             if l_oprtr == -1:
                 l_oprnd = exp[:op_i]
                 oprnds['l_op'] = l_oprnd
@@ -173,7 +177,6 @@ def find_oprnds(exp, op_i, oprtrs):
                 oprnds['r_op'] = r_oprnd
 
     return oprnds
-
 
 
 """
@@ -213,24 +216,3 @@ def parse_exp(exp):
         ops_list.append(op_dict)
         op_dict = {}
     return ops_list
-    
-e = 'log(1,1)+nrt(2,2)'
-
-def new_find_next_oprtr(oprtrs, op_i, rev):
-    op_i_list = list(oprtrs)
-    print(op_i_list)
-    #next operator index in the op_i_list
-    next_op_l_i = op_i_list.index(op_i)
-    print(next_op_l_i)
-    #checking for index out of range
-    if (next_op_l_i == 0 and rev) or (next_op_l_i == len(op_i_list) - 1 and not rev):
-        return -1
-    else:
-        if rev:
-            next_op_l_i -= 1
-        else:
-            next_op_l_i += 1
-    return op_i_list[next_op_l_i]
-
-e = 'log(1,1)+nrt(2,2)'
-parse_exp(e)

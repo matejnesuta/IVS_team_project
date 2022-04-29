@@ -120,15 +120,20 @@ param: str out
 return str f_out
 """
 def format_output(out):
+    #removes brackets in case, when the expression is a sole negative number
+    if is_neg_oprnd(str(out)):
+        out = cln_neg_oprnd(str(out))
+
+    #rounding of sole number
+    if type(out) is str and out.find('.') != -1:
+        out = float(out)
     #converts .0 float to int
+
     if type(out) is float:
         out = round(out, 7)
         if int(out) == out:
             return int(out)
 
-    #removes brackets in case, when the expression is a sole negative number
-    if is_neg_oprnd(str(out)):
-        return cln_neg_oprnd(str(out))
     return out
 
 
